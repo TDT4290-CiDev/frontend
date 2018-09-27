@@ -1,6 +1,7 @@
 ## Prerequisites
 
 [Node.js](http://nodejs.org/) >= 6 must be installed.
+[Yarn](https://yarnpkg.com) must also be installed.
 
 ## Installation
 
@@ -30,7 +31,7 @@
 
 Before you start coding, you must set up automatic linter and prettier in your editor. For atom you do the following:
 
-- Install the packages 'linter-eslint' and 'prettier-atom'
-- Open settings for the package 'prettier-atom' and activate 'ESLint Integration' and 'Format Files on Save'
+- Install the packages `linter-eslint`, `linter-stylelint` and `prettier-atom`
+- Open settings for the package 'prettier-atom' and activate 'ESLint Integration', 'Stylelint Integration' and 'Format Files on Save'
 
 For other editors, google it...

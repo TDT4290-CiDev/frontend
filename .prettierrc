@@ -1,4 +1,3 @@
-module.exports = {
-  "printWidth": 100,
-  "semi": true
+{
+  "printWidth": 120
 }
