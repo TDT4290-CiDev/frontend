@@ -4,7 +4,8 @@
   "rules": {
     "max-len": [1, 120, 2, { "ignoreComments": true }],
     "prop-types": [1],
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "linebreak-style": 0
   },
   "env": {
     "browser": true
