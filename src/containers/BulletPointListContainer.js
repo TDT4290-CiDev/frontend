@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { arrayMove } from 'react-sortable-hoc';
+import InputField from '../components/InputField';
 import BulletPointList from '../components/BulletPointList';
 
 class BulletPointListContainer extends React.Component {
@@ -10,18 +11,14 @@ class BulletPointListContainer extends React.Component {
       title: '',
       bulletPoints: [
         {
-          text: 'heisann',
-        },
-        {
-          text: 'på',
+          text: '',
         },
       ],
-      activeBulletPoint: 0,
+      activeBulletPoint: -1,
     };
   }
 
   onBulletPointTextChange = (index, newValue) => {
-    console.log(`${index} has changed with value: ${newValue}`);
     const { bulletPoints } = this.state;
     this.setState({
       bulletPoints: bulletPoints.map(
@@ -38,13 +35,17 @@ class BulletPointListContainer extends React.Component {
   onBulletPointKeyPress = (e, index) => {
     const inputValue = e.target.value;
     const { bulletPoints } = this.state;
-    console.log(`${index} has pressed a key with value: ${inputValue}`);
+    const { changeFocusToCommandInputField } = this.props;
     switch (e.key) {
       case 'Enter':
-        console.log('Enter');
-        // TODO: Remove bullet point list when id = 0 and inputValue = ''
         if (inputValue === '') {
-          this.removeBulletPoint(index);
+          if (bulletPoints.length > 1) {
+            // TODO: Shift focus to CommandInputField
+            this.removeBulletPoint(index);
+            changeFocusToCommandInputField();
+          } else {
+            // TODO: Remove bullet point list
+          }
         } else if (index === bulletPoints.length - 1 || bulletPoints[index + 1].text !== '') {
           this.addNewBulletPoint(index + 1);
         } else {
@@ -52,11 +53,10 @@ class BulletPointListContainer extends React.Component {
         }
         break;
       case 'Backspace':
-        console.log('Backspace');
+        // TODO: What should happen here?
         break;
       default:
-        console.log('default');
-        // Add last character of inputValue to bullet point text if e is an repeting event because onKeyDown does not do it by itself
+        // Add last character of inputValue to bullet point text if e is an repeating event because onKeyDown does not do it by itself
         if (e.repeat) {
           this.onBulletPointTextChange(index, inputValue + inputValue.charAt(inputValue.length - 1));
         }
@@ -99,18 +99,18 @@ class BulletPointListContainer extends React.Component {
   };
 
   render() {
-    const { children } = this.props;
     const { title, bulletPoints, activeBulletPoint } = this.state;
 
     return (
       <div className="bullet-list-container">
-        <input
+        <InputField
           type="text"
-          placeholder="Min punktliste..."
           onChange={e => this.setState({ title: e.target.value })}
           onKeyPress={e => this.onTitleKeyPress(e)}
           onFocus={() => this.setState({ activeBulletPoint: -1 })}
           value={title}
+          placeholder="Min punktliste..."
+          autoFocus={activeBulletPoint === -1}
         />
         <BulletPointList
           bulletPoints={bulletPoints}
@@ -121,18 +121,13 @@ class BulletPointListContainer extends React.Component {
           onSortEnd={this.onSortEnd}
           useDragHandle
         />
-        {children}
       </div>
     );
   }
 }
 
 BulletPointListContainer.propTypes = {
-  children: PropTypes.node,
-};
-
-BulletPointListContainer.defaultProps = {
-  children: null,
+  changeFocusToCommandInputField: PropTypes.func.isRequired,
 };
 
 export default BulletPointListContainer;
