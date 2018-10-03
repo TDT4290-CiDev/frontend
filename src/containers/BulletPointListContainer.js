@@ -25,13 +25,13 @@ class BulletPointListContainer extends React.Component {
     const { bulletPoints } = this.state;
     this.setState({
       bulletPoints: bulletPoints.map(
-        (bulletPoint, i) => (i === index ? { ...bulletPoint, text: newValue } : bulletPoint),
+        (bulletPoint, i) => (i === index ? { ...bulletPoint, text: newValue } : bulletPoint)
       ),
     });
   };
 
   // Is triggered when user shifts focus by clicking or tabbing
-  onBulletPointFocus = (index) => {
+  onBulletPointFocus = index => {
     this.setState({ activeBulletPoint: index });
   };
 
@@ -64,7 +64,7 @@ class BulletPointListContainer extends React.Component {
     }
   };
 
-  removeBulletPoint = (index) => {
+  removeBulletPoint = index => {
     const { bulletPoints } = this.state;
     this.setState({
       bulletPoints: bulletPoints.filter((bulletPoint, i) => i !== index),
@@ -77,7 +77,7 @@ class BulletPointListContainer extends React.Component {
   };
 
   // index is the index for the new bullet point
-  addNewBulletPoint = (index) => {
+  addNewBulletPoint = index => {
     const { bulletPoints } = this.state;
     this.setState({
       bulletPoints: [...bulletPoints.slice(0, index), { text: '' }, ...bulletPoints.slice(index)],
@@ -92,7 +92,7 @@ class BulletPointListContainer extends React.Component {
     });
   };
 
-  onTitleKeyPress = (e) => {
+  onTitleKeyPress = e => {
     if (e.key === 'Enter') {
       this.setState({ activeBulletPoint: 0 });
     }

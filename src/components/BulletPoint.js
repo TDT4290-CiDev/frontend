@@ -4,9 +4,7 @@ import { SortableElement } from 'react-sortable-hoc';
 import DragHandle from './DragHandle';
 import InputField from './InputField';
 
-const BulletPoint = SortableElement(({
-  id, text, onChange, onFocus, onKeyPress, focus,
-}) => (
+const BulletPoint = SortableElement(({ id, text, onChange, onFocus, onKeyPress, focus }) => (
   <li className="bullet-point">
     <DragHandle />
     <InputField
