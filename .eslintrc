@@ -1,6 +1,5 @@
 {
   "parser": "babel-eslint",
-  "plugins": ["react"],
   "rules": {
     "max-len": [1, 120, 2, { "ignoreComments": true }],
     "prop-types": [1],
@@ -10,5 +9,5 @@
   "env": {
     "browser": true
   },
-  "extends": "airbnb"
+  "extends": ["airbnb", "prettier"]
 }
