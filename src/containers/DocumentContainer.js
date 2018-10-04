@@ -2,7 +2,7 @@ import React from 'react';
 import uuidv1 from 'uuid/v1';
 import CommandInputFieldContainer from './CommandInputFieldContainer';
 import InputField from '../components/InputField';
-import { availableModules } from '../utils/modules';
+import { getModule } from '../utils/modules';
 
 class DocumentContainer extends React.Component {
   constructor() {
@@ -21,9 +21,32 @@ class DocumentContainer extends React.Component {
     setTimeout(() => this.setState({ commandInputFieldFocus: false }), 1);
   };
 
-  addModuleToForm = (module) => {
+  addModule = (moduleShortcut) => {
     const { activeModules } = this.state;
-    this.setState({ activeModules: [...activeModules, availableModules[module]] });
+    const NewModule = getModule(moduleShortcut);
+    const moduleId = uuidv1();
+    this.setState({
+      activeModules: [
+        ...activeModules,
+        {
+          id: moduleId,
+          module: (
+            <NewModule
+              key={moduleId}
+              id={moduleId}
+              changeFocusToCommandInputField={this.changeFocusToCommandInputField}
+              removeModule={this.removeModule}
+            />
+          ),
+        },
+      ],
+    });
+  };
+
+  removeModule = (moduleId) => {
+    const { activeModules } = this.state;
+    this.setState({ activeModules: activeModules.filter(activeModule => activeModule.id !== moduleId) });
+    this.changeFocusToCommandInputField();
   };
 
   render() {
@@ -38,11 +61,9 @@ class DocumentContainer extends React.Component {
           onChange={this.onTitleChange}
         />
         <div className="document-container__active-modules">
-          {activeModules.map(Component => (
-            <Component key={uuidv1()} changeFocusToCommandInputField={this.changeFocusToCommandInputField} />
-          ))}
+          {activeModules.map(activeModule => activeModule.module)}
         </div>
-        <CommandInputFieldContainer addModuleToForm={this.addModuleToForm} focus={commandInputFieldFocus} />
+        <CommandInputFieldContainer addModuleToForm={this.addModule} focus={commandInputFieldFocus} />
       </div>
     );
   }

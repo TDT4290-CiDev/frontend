@@ -35,25 +35,33 @@ class BulletPointListContainer extends React.Component {
   onBulletPointKeyPress = (e, index) => {
     const inputValue = e.target.value;
     const { bulletPoints } = this.state;
-    const { changeFocusToCommandInputField } = this.props;
+    const { id, changeFocusToCommandInputField, removeModule } = this.props;
     switch (e.key) {
       case 'Enter':
         if (inputValue === '') {
           if (bulletPoints.length > 1) {
-            // TODO: Shift focus to CommandInputField
             this.removeBulletPoint(index);
-            changeFocusToCommandInputField();
-          } else {
-            // TODO: Remove bullet point list
+            if (index === bulletPoints.length - 1) {
+              changeFocusToCommandInputField();
+            } else {
+              this.setActiveBulletPoint(index - 1);
+            }
           }
         } else if (index === bulletPoints.length - 1 || bulletPoints[index + 1].text !== '') {
           this.addNewBulletPoint(index + 1);
         } else {
-          this.setState({ activeBulletPoint: index + 1 });
+          this.setActiveBulletPoint(index + 1);
         }
         break;
       case 'Backspace':
-        // TODO: What should happen here?
+        if (inputValue === '') {
+          if (bulletPoints.length === 1) {
+            removeModule(id);
+          } else {
+            this.removeBulletPoint(index);
+            this.setActiveBulletPoint(index - 1);
+          }
+        }
         break;
       default:
         // Add last character of inputValue to bullet point text if e is an repeating event because onKeyDown does not do it by itself
@@ -69,11 +77,10 @@ class BulletPointListContainer extends React.Component {
     this.setState({
       bulletPoints: bulletPoints.filter((bulletPoint, i) => i !== index),
     });
+  };
 
-    // Set focus to previous bullet point if the removed bullet point not is the last one in the list
-    if (bulletPoints.length - 1 !== index) {
-      this.setState({ activeBulletPoint: index - 1 });
-    }
+  setActiveBulletPoint = (index) => {
+    setTimeout(() => this.setState({ activeBulletPoint: index }), 10);
   };
 
   // index is the index for the new bullet point
@@ -94,20 +101,19 @@ class BulletPointListContainer extends React.Component {
 
   onTitleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      this.setState({ activeBulletPoint: 0 });
+      this.setActiveBulletPoint(0);
     }
   };
 
   render() {
     const { title, bulletPoints, activeBulletPoint } = this.state;
-
     return (
       <div className="bullet-list-container">
         <InputField
           type="text"
           onChange={e => this.setState({ title: e.target.value })}
           onKeyPress={e => this.onTitleKeyPress(e)}
-          onFocus={() => this.setState({ activeBulletPoint: -1 })}
+          onFocus={() => this.setActiveBulletPoint(-1)}
           value={title}
           placeholder="Min punktliste..."
           autoFocus={activeBulletPoint === -1}
@@ -127,6 +133,8 @@ class BulletPointListContainer extends React.Component {
 }
 
 BulletPointListContainer.propTypes = {
+  id: PropTypes.string.isRequired,
+  removeModule: PropTypes.func.isRequired,
   changeFocusToCommandInputField: PropTypes.func.isRequired,
 };
 

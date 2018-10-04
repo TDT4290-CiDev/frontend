@@ -7,22 +7,22 @@ class CommandInputFieldContainer extends React.Component {
   constructor() {
     super();
     this.state = {
-      text: '',
+      inputText: '',
     };
   }
 
   onChange = (e) => {
-    this.setState({ text: e.target.value });
+    this.setState({ inputText: e.target.value });
   };
 
   onKeyPress = (e) => {
-    const { text } = this.state;
+    const { inputText } = this.state;
     const { addModuleToForm } = this.props;
     if (e.key === 'Enter') {
-      if (isValidCommand(text)) {
-        addModuleToForm(text);
-        this.setState({ text: '' });
-      } else if (text !== '') {
+      if (isValidCommand(inputText)) {
+        addModuleToForm(inputText);
+        this.setState({ inputText: '' });
+      } else if (inputText !== '') {
         // TODO: Show an error message to user
         console.log(`Not valid. Valid commands: ${validCommandsString}`);
       }
@@ -30,13 +30,13 @@ class CommandInputFieldContainer extends React.Component {
   };
 
   render() {
-    const { text } = this.state;
+    const { inputText } = this.state;
     const { focus } = this.props;
     return (
       <div className="command-input">
         <InputField
           type="text"
-          value={text}
+          value={inputText}
           onChange={this.onChange}
           onKeyPress={this.onKeyPress}
           placeholder={validCommandsString}
