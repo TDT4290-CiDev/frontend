@@ -22,20 +22,24 @@ class InputField extends React.Component {
 InputField.propTypes = {
   id: PropTypes.number,
   type: PropTypes.string.isRequired,
+  className: PropTypes.string,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
   value: PropTypes.string,
   onKeyPress: PropTypes.func,
   autoFocus: PropTypes.bool,
+  placeholder: PropTypes.string,
 };
 
 InputField.defaultProps = {
   id: 0,
+  className: '',
   onChange: null,
   onFocus: null,
   value: '',
   onKeyPress: null,
   autoFocus: false,
+  placeholder: '',
 };
 
 export default InputField;
