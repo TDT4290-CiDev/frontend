@@ -11,11 +11,11 @@ class CommandInputFieldContainer extends React.Component {
     };
   }
 
-  onChange = (e) => {
+  handleChange = e => {
     this.setState({ inputText: e.target.value });
   };
 
-  onKeyPress = (e) => {
+  handleKeyPress = e => {
     const { inputText } = this.state;
     const { addModuleToForm } = this.props;
     if (e.key === 'Enter') {
@@ -37,8 +37,8 @@ class CommandInputFieldContainer extends React.Component {
         <InputField
           type="text"
           value={inputText}
-          onChange={this.onChange}
-          onKeyPress={this.onKeyPress}
+          onChange={this.handleChange}
+          onKeyPress={this.handleKeyPress}
           placeholder={validCommandsString}
           autoFocus={focus}
         />

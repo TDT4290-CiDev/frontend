@@ -18,7 +18,7 @@ class BulletPointListContainer extends React.Component {
     };
   }
 
-  onBulletPointTextChange = (index, newValue) => {
+  handleBulletPointTextChange = (index, newValue) => {
     const { bulletPoints } = this.state;
     this.setState({
       bulletPoints: bulletPoints.map(
@@ -28,15 +28,14 @@ class BulletPointListContainer extends React.Component {
   };
 
   // Is triggered when user shifts focus by clicking or tabbing
-  onBulletPointFocus = index => {
-    this.setState({ activeBulletPoint: index });
+  handleBulletPointFocus = index => {
+    this.setActiveBulletPoint(index);
   };
 
-  onBulletPointKeyPress = (e, index) => {
-    const inputValue = e.target.value;
+  handleBulletPointKeyPress = (key, inputValue, index, repeat) => {
     const { bulletPoints } = this.state;
     const { id, changeFocusToCommandInputField, removeModule } = this.props;
-    switch (e.key) {
+    switch (key) {
       case 'Enter':
         if (inputValue === '') {
           if (bulletPoints.length > 1) {
@@ -65,8 +64,8 @@ class BulletPointListContainer extends React.Component {
         break;
       default:
         // Add last character of inputValue to bullet point text if e is an repeating event because onKeyDown does not do it by itself
-        if (e.repeat) {
-          this.onBulletPointTextChange(index, inputValue + inputValue.charAt(inputValue.length - 1));
+        if (repeat) {
+          this.handleBulletPointTextChange(index, inputValue + inputValue.charAt(inputValue.length - 1));
         }
         break;
     }
@@ -92,17 +91,23 @@ class BulletPointListContainer extends React.Component {
     });
   };
 
-  onSortEnd = ({ oldIndex, newIndex }) => {
+  handleSortEnd = ({ oldIndex, newIndex }) => {
     const { bulletPoints } = this.state;
     this.setState({
       bulletPoints: arrayMove(bulletPoints, oldIndex, newIndex),
     });
   };
 
-  onTitleKeyPress = e => {
+  handleTitleKeyPress = e => {
     if (e.key === 'Enter') {
       this.setActiveBulletPoint(0);
     }
+  };
+
+  handleTitleChange = e => this.setState({ title: e.target.value });
+
+  handleTitleFocus = () => {
+    this.setActiveBulletPoint(-1);
   };
 
   render() {
@@ -111,9 +116,9 @@ class BulletPointListContainer extends React.Component {
       <div className="bullet-list-container">
         <InputField
           type="text"
-          onChange={e => this.setState({ title: e.target.value })}
-          onKeyPress={e => this.onTitleKeyPress(e)}
-          onFocus={() => this.setActiveBulletPoint(-1)}
+          onChange={this.handleTitleChange}
+          onKeyPress={this.handleTitleKeyPress}
+          onFocus={this.handleTitleFocus}
           value={title}
           placeholder="Min punktliste..."
           autoFocus={activeBulletPoint === -1}
@@ -121,10 +126,10 @@ class BulletPointListContainer extends React.Component {
         <BulletPointList
           bulletPoints={bulletPoints}
           activeBulletPoint={activeBulletPoint}
-          onBulletPointTextChange={this.onBulletPointTextChange}
-          onBulletPointFocus={this.onBulletPointFocus}
-          onBulletPointKeyPress={this.onBulletPointKeyPress}
-          onSortEnd={this.onSortEnd}
+          onBulletPointTextChange={this.handleBulletPointTextChange}
+          onBulletPointFocus={this.handleBulletPointFocus}
+          onBulletPointKeyPress={this.handleBulletPointKeyPress}
+          onSortEnd={this.handleSortEnd}
           useDragHandle
         />
       </div>
