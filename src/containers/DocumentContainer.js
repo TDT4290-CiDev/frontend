@@ -14,14 +14,14 @@ class DocumentContainer extends React.Component {
     };
   }
 
-  onTitleChange = e => this.setState({ title: e.target.value });
+  handleTitleChange = e => this.setState({ title: e.target.value });
 
   changeFocusToCommandInputField = () => {
     this.setState({ commandInputFieldFocus: true });
     setTimeout(() => this.setState({ commandInputFieldFocus: false }), 1);
   };
 
-  addModule = (moduleShortcut) => {
+  addModule = moduleShortcut => {
     const { activeModules } = this.state;
     const NewModule = getModule(moduleShortcut);
     const moduleId = uuidv1();
@@ -43,7 +43,7 @@ class DocumentContainer extends React.Component {
     });
   };
 
-  removeModule = (moduleId) => {
+  removeModule = moduleId => {
     const { activeModules } = this.state;
     this.setState({ activeModules: activeModules.filter(activeModule => activeModule.id !== moduleId) });
     this.changeFocusToCommandInputField();
@@ -58,7 +58,7 @@ class DocumentContainer extends React.Component {
           type="text"
           placeholder="Skriv inn dokumenttittel..."
           value={title}
-          onChange={this.onTitleChange}
+          onChange={this.handleTitleChange}
         />
         <div className="document-container__active-modules">
           {activeModules.map(activeModule => activeModule.module)}
