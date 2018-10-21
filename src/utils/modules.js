@@ -38,12 +38,26 @@ const getModuleShortcutMatch = moduleShortcut => {
     }
   }
   return null;
-}
+};
 
 const getModule = moduleShortcut => {
   const key = getModuleShortcutMatch(moduleShortcut);
   if(!key) return null;
   return availableModules[key];
-}
+};
 
-export { getModule, isValidCommand, validCommandsString };
+const getProps = moduleShortcut => {
+  const key = getModuleShortcutMatch(moduleShortcut);
+  const propNames = key.match(/{[a-zA-Z_-]+}/g).map(x => x.substring(1, x.length - 1));
+  const delimiters = key.split(/{[a-zA-Z_-]+}/).filter(x=>x);
+  const propValues = moduleShortcut.split(new RegExp(delimiters.map(escapeRegExp).join('|'))).filter(x=>x);
+
+  const props = Object();
+  for(let i = 0; i < propNames.length; i+=1) {
+    props[propNames[i]] = propValues[i];
+  }
+
+  return props;
+};
+
+export { getModule, getProps, isValidCommand, validCommandsString };

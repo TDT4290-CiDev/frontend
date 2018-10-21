@@ -2,7 +2,7 @@ import React from 'react';
 import uuidv1 from 'uuid/v1';
 import CommandInputFieldContainer from './CommandInputFieldContainer';
 import InputField from '../components/InputField';
-import { getModule } from '../utils/modules';
+import { getModule, getProps } from '../utils/modules';
 
 class DocumentContainer extends React.Component {
   constructor() {
@@ -27,6 +27,7 @@ class DocumentContainer extends React.Component {
     if (!NewModule) {
       throw new Error('No module matches given shortcut.');
     }
+    const props = getProps(moduleShortcut);
     const moduleId = uuidv1();
     this.setState({
       activeModules: [
@@ -35,6 +36,7 @@ class DocumentContainer extends React.Component {
           id: moduleId,
           module: (
             <NewModule
+              {...props}
               key={moduleId}
               id={moduleId}
               changeFocusToCommandInputField={this.changeFocusToCommandInputField}
