@@ -14,10 +14,10 @@ const availableModules = {
 
 // 3. Add a description to the container
 const commandTranslation = {
-  '[]': 'flervalgsspørsmål',
+  '[] {option}': 'flervalgsspørsmål',
   _: 'textsvar',
   __: 'langsvar',
-  '*': 'punktliste',
+  '* {item}': 'punktliste',
 };
 
 // Helper methods
@@ -29,15 +29,21 @@ const isValidCommand = command => validCommands.includes(command);
 
 const escapeRegExp = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-const getModule = moduleShortcut => {
+const getModuleShortcutMatch = moduleShortcut => {
   for(const key of Object.keys(availableModules)) {
     const patternElements = key.split(/{[a-zA-Z_-]+}/);
     const pattern = new RegExp(`^${  patternElements.map(x => x.trim()).map(escapeRegExp).join('.*')  }$`);
     if(moduleShortcut.match(pattern)) {
-      return availableModules[key];
+      return key;
     }
   }
   return null;
+}
+
+const getModule = moduleShortcut => {
+  const key = getModuleShortcutMatch(moduleShortcut);
+  if(!key) return null;
+  return availableModules[key];
 }
 
 export { getModule, isValidCommand, validCommandsString };
