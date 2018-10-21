@@ -6,10 +6,10 @@ import BulletPointListContainer from '../containers/BulletPointListContainer';
 
 // 2. Create a shortcut to the container
 const availableModules = {
-  '[]': TestComponent,
+  '[] {option}': TestComponent,
   _: TestComponent,
   __: TestComponent,
-  '*': BulletPointListContainer,
+  '* {item}': BulletPointListContainer,
 };
 
 // 3. Add a description to the container
@@ -27,6 +27,17 @@ const validCommandsString = validCommands.map(command => `${command} ${commandTr
 
 const isValidCommand = command => validCommands.includes(command);
 
-const getModule = moduleShortcut => availableModules[moduleShortcut];
+const escapeRegExp = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+const getModule = moduleShortcut => {
+  for(const key of Object.keys(availableModules)) {
+    const patternElements = key.split(/{[a-zA-Z_-]+}/);
+    const pattern = new RegExp(`^${  patternElements.map(x => x.trim()).map(escapeRegExp).join('.*')  }$`);
+    if(moduleShortcut.match(pattern)) {
+      return availableModules[key];
+    }
+  }
+  return null;
+}
 
 export { getModule, isValidCommand, validCommandsString };
