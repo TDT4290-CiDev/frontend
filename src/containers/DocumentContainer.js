@@ -24,6 +24,9 @@ class DocumentContainer extends React.Component {
   addModule = moduleShortcut => {
     const { activeModules } = this.state;
     const NewModule = getModule(moduleShortcut);
+    if (!NewModule) {
+      throw new Error('No module matches given shortcut.');
+    }
     const moduleId = uuidv1();
     this.setState({
       activeModules: [

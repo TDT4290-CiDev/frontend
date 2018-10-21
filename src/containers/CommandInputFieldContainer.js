@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import InputField from '../components/InputField';
-import { isValidCommand, validCommandsString } from '../utils/modules';
+import { validCommandsString } from '../utils/modules';
 
 class CommandInputFieldContainer extends React.Component {
   constructor() {
@@ -19,12 +19,14 @@ class CommandInputFieldContainer extends React.Component {
     const { inputText } = this.state;
     const { addModuleToForm } = this.props;
     if (e.key === 'Enter') {
-      if (isValidCommand(inputText)) {
+      try {
         addModuleToForm(inputText);
         this.setState({ inputText: '' });
-      } else if (inputText !== '') {
-        // TODO: Show an error message to user
-        console.log(`Not valid. Valid commands: ${validCommandsString}`);
+      } catch (err) {
+        if (inputText !== '') {
+          // TODO: Show an error message to user
+          console.log(`Not valid. Valid commands: ${validCommandsString}`);
+        }
       }
     }
   };
