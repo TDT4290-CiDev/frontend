@@ -7,14 +7,16 @@ import BulletPointList from '../components/BulletPointList';
 class BulletPointListContainer extends React.Component {
   constructor(props) {
     super(props);
+    const bulletPoints = [];
+    for(const item of props.items) {
+      bulletPoints.push({text: item});
+    }
+    bulletPoints.push({text: ''});
+
     this.state = {
       title: '',
-      bulletPoints: [
-        {
-          text: '',
-        },
-      ],
-      activeBulletPoint: -1,
+      bulletPoints,
+      activeBulletPoint: bulletPoints.length - 1,
     };
   }
 
@@ -141,6 +143,11 @@ BulletPointListContainer.propTypes = {
   id: PropTypes.string.isRequired,
   removeModule: PropTypes.func.isRequired,
   changeFocusToCommandInputField: PropTypes.func.isRequired,
+  items: PropTypes.arrayOf(PropTypes.string)
 };
+
+BulletPointListContainer.defaultProps = {
+  items: [],
+}
 
 export default BulletPointListContainer;
