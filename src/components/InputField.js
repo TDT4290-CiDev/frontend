@@ -20,7 +20,7 @@ class InputField extends React.Component {
 }
 
 InputField.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   className: PropTypes.string,
   onChange: PropTypes.func,
@@ -32,7 +32,6 @@ InputField.propTypes = {
 };
 
 InputField.defaultProps = {
-  id: 0,
   className: '',
   onChange: null,
   onFocus: null,

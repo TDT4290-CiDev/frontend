@@ -4,7 +4,7 @@ import { SortableElement } from 'react-sortable-hoc';
 import DragHandle from './DragHandle';
 import InputField from './InputField';
 
-const BulletPoint = SortableElement(({ id, text, onChange, onFocus, onKeyPress, focus }) => {
+const BulletPoint = SortableElement(({ id, listIndex, text, onChange, onFocus, onKeyPress, focus }) => {
   const handleTextChange = e => {
     onChange(id, e.target.value);
   };
@@ -14,7 +14,7 @@ const BulletPoint = SortableElement(({ id, text, onChange, onFocus, onKeyPress, 
   };
 
   const handleKeyPress = e => {
-    onKeyPress(e.key, e.target.value, id, e.repeat);
+    onKeyPress(e, id, listIndex);
   };
 
   return (
@@ -34,7 +34,7 @@ const BulletPoint = SortableElement(({ id, text, onChange, onFocus, onKeyPress, 
 });
 
 BulletPoint.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onFocus: PropTypes.func.isRequired,

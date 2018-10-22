@@ -1,131 +1,144 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { arrayMove } from 'react-sortable-hoc';
+import uuidv1 from 'uuid/v1';
 import InputField from '../components/InputField';
 import BulletPointList from '../components/BulletPointList';
+import {
+  addBulletPoint,
+  removeBulletPoint,
+  moveBulletPoint,
+  setBulletPointText,
+} from '../actions/bulletPointListActions';
+import { setQuestionTitle, removeQuestion } from '../actions/questionActions';
+import { setFocus } from '../actions/documentActions';
 
 class BulletPointListContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
       bulletPoints: [
         {
           text: '',
         },
       ],
-      activeBulletPoint: -1,
+      activeField: 'title',
     };
   }
 
-  handleBulletPointTextChange = (index, newValue) => {
+  handleBulletPointTextChange = (bulletPointId, newValue) => {
     const { bulletPoints } = this.state;
+    const { id, setBulletPointValue } = this.props;
+    setBulletPointValue(id, bulletPointId, newValue);
     this.setState({
       bulletPoints: bulletPoints.map(
-        (bulletPoint, i) => (i === index ? { ...bulletPoint, text: newValue } : bulletPoint)
+        (bulletPoint, i) => (i === bulletPointId ? { ...bulletPoint, text: newValue } : bulletPoint)
       ),
     });
   };
 
   // Is triggered when user shifts focus by clicking or tabbing
-  handleBulletPointFocus = index => {
-    this.setActiveBulletPoint(index);
+  handleBulletPointFocus = id => {
+    this.setState({ activeField: id });
   };
 
-  handleBulletPointKeyPress = (key, inputValue, index, repeat) => {
-    const { bulletPoints } = this.state;
-    const { id, changeFocusToCommandInputField, removeModule } = this.props;
-    switch (key) {
+  handleBulletPointKeyPress = (e, bulletPointId, index) => {
+    const inputValue = e.target.value;
+    const { id, sectionId, bulletPoints, changeFocusToCommandInputField, removeBulletPointList } = this.props;
+    switch (e.key) {
       case 'Enter':
         if (inputValue === '') {
           if (bulletPoints.length > 1) {
-            this.removeBulletPoint(index);
+            this.removeBulletPoint(bulletPointId);
             if (index === bulletPoints.length - 1) {
               changeFocusToCommandInputField();
             } else {
-              this.setActiveBulletPoint(index - 1);
+              this.setActiveField(bulletPoints[index - 1].id);
             }
           }
         } else if (index === bulletPoints.length - 1 || bulletPoints[index + 1].text !== '') {
-          this.addNewBulletPoint(index + 1);
+          this.addBulletPoint(index + 1);
         } else {
-          this.setActiveBulletPoint(index + 1);
+          this.setActiveField(bulletPoints[index + 1].id);
         }
         break;
       case 'Backspace':
         if (inputValue === '') {
           if (bulletPoints.length === 1) {
-            removeModule(id);
+            removeBulletPointList(id, sectionId);
           } else {
-            this.removeBulletPoint(index);
-            this.setActiveBulletPoint(index - 1);
+            this.removeBulletPoint(bulletPointId);
+            if (index !== 0) {
+              this.setActiveField(bulletPoints[index - 1].id);
+            } else {
+              this.setActiveField('title');
+            }
           }
         }
         break;
       default:
         // Add last character of inputValue to bullet point text if e is an repeating event because onKeyDown does not do it by itself
-        if (repeat) {
-          this.handleBulletPointTextChange(index, inputValue + inputValue.charAt(inputValue.length - 1));
+        if (e.repeat) {
+          this.handleBulletPointTextChange(bulletPointId, inputValue + inputValue.charAt(inputValue.length - 1));
         }
         break;
     }
   };
 
-  removeBulletPoint = index => {
-    const { bulletPoints } = this.state;
-    this.setState({
-      bulletPoints: bulletPoints.filter((bulletPoint, i) => i !== index),
-    });
+  removeBulletPoint = bulletPointId => {
+    const { id, removeBulletPoint } = this.props;
+    removeBulletPoint(id, bulletPointId);
   };
 
-  setActiveBulletPoint = index => {
-    setTimeout(() => this.setState({ activeBulletPoint: index }), 10);
+  setActiveField = id => {
+    setTimeout(() => this.setState({ activeField: id }), 10);
   };
 
   // index is the index for the new bullet point
-  addNewBulletPoint = index => {
-    const { bulletPoints } = this.state;
+  addBulletPoint = index => {
+    const { id, addNewBulletPoint } = this.props;
+    const newBulletPointId = uuidv1();
+    addNewBulletPoint(id, newBulletPointId, index);
     this.setState({
-      bulletPoints: [...bulletPoints.slice(0, index), { text: '' }, ...bulletPoints.slice(index)],
-      activeBulletPoint: index,
+      activeField: newBulletPointId,
     });
   };
 
   handleSortEnd = ({ oldIndex, newIndex }) => {
-    const { bulletPoints } = this.state;
-    this.setState({
-      bulletPoints: arrayMove(bulletPoints, oldIndex, newIndex),
-    });
+    const { id, moveBulletPoint } = this.props;
+    moveBulletPoint(id, oldIndex, newIndex);
   };
 
   handleTitleKeyPress = e => {
+    const { bulletPoints } = this.props;
     if (e.key === 'Enter') {
-      this.setActiveBulletPoint(0);
+      this.setActiveField(bulletPoints[0].id);
     }
   };
 
-  handleTitleChange = e => this.setState({ title: e.target.value });
-
-  handleTitleFocus = () => {
-    this.setActiveBulletPoint(-1);
+  handleTitleChange = e => {
+    const { id, setTitle } = this.props;
+    setTitle(id, e.target.value);
   };
 
   render() {
-    const { title, bulletPoints, activeBulletPoint } = this.state;
+    const { activeField } = this.state;
+    const { id, title, bulletPoints } = this.props;
     return (
       <div className="bullet-list-container">
         <InputField
+          id={id}
           type="text"
           onChange={this.handleTitleChange}
           onKeyPress={this.handleTitleKeyPress}
-          onFocus={this.handleTitleFocus}
+          onFocus={() => this.setActiveField('title')}
           value={title}
           placeholder="Min punktliste..."
-          autoFocus={activeBulletPoint === -1}
+          autoFocus={activeField === 'title'}
         />
         <BulletPointList
           bulletPoints={bulletPoints}
-          activeBulletPoint={activeBulletPoint}
+          activeField={activeField}
           onBulletPointTextChange={this.handleBulletPointTextChange}
           onBulletPointFocus={this.handleBulletPointFocus}
           onBulletPointKeyPress={this.handleBulletPointKeyPress}
@@ -139,8 +152,30 @@ class BulletPointListContainer extends React.Component {
 
 BulletPointListContainer.propTypes = {
   id: PropTypes.string.isRequired,
-  removeModule: PropTypes.func.isRequired,
+  sectionId: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  bulletPoints: PropTypes.arrayOf(PropTypes.object).isRequired,
+  addNewBulletPoint: PropTypes.func.isRequired,
+  removeBulletPoint: PropTypes.func.isRequired,
+  moveBulletPoint: PropTypes.func.isRequired,
+  setBulletPointValue: PropTypes.func.isRequired,
+  removeBulletPointList: PropTypes.func.isRequired,
   changeFocusToCommandInputField: PropTypes.func.isRequired,
+  setTitle: PropTypes.func.isRequired,
 };
 
-export default BulletPointListContainer;
+const mapDispatchToProps = dispatch => ({
+  addNewBulletPoint: (questionId, bulletPointId, index) => dispatch(addBulletPoint(questionId, bulletPointId, index)),
+  removeBulletPoint: (questionId, bulletPointId) => dispatch(removeBulletPoint(questionId, bulletPointId)),
+  moveBulletPoint: (questionId, oldIndex, newIndex) => dispatch(moveBulletPoint(questionId, oldIndex, newIndex)),
+  setBulletPointValue: (questionId, bulletPointId, value) =>
+    dispatch(setBulletPointText(questionId, bulletPointId, value)),
+  removeBulletPointList: (id, sectionId) => dispatch(removeQuestion(id, sectionId)),
+  changeFocusToCommandInputField: () => dispatch(setFocus('commandInput')),
+  setTitle: (id, text) => dispatch(setQuestionTitle(id, text)),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(BulletPointListContainer);
