@@ -5,28 +5,14 @@ import CommandInputFieldContainer from './CommandInputFieldContainer';
 import SectionContainer from './SectionContainer';
 import InputField from '../components/InputField';
 import { setDocumentTitle } from '../actions/documentActions';
-import { addSection, removeSection } from '../actions/sectionActions';
 
 class DocumentContainer extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      commandInputFieldFocus: false,
-    };
-  }
-
   handleTitleChange = e => {
     const { onTitleChange } = this.props;
     onTitleChange(e.target.value);
   };
 
-  changeFocusToCommandInputField = () => {
-    this.setState({ commandInputFieldFocus: true });
-    setTimeout(() => this.setState({ commandInputFieldFocus: false }), 1);
-  };
-
   render() {
-    const { commandInputFieldFocus } = this.state;
     const { id, title, sections } = this.props;
     return (
       <div className="document-container">
@@ -43,7 +29,7 @@ class DocumentContainer extends React.Component {
             <SectionContainer key={sectionId} id={sectionId} />
           ))}
         </div>
-        <CommandInputFieldContainer focus={commandInputFieldFocus} />
+        <CommandInputFieldContainer />
       </div>
     );
   }
@@ -63,8 +49,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addSection: index => dispatch(addSection(index)),
-  removeSection: id => dispatch(removeSection(id)),
   onTitleChange: title => dispatch(setDocumentTitle(title)),
 });
 
