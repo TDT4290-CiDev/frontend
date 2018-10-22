@@ -9,7 +9,7 @@ const availableModules = {
   '[] {options[]} - {options[]}': TestComponent,
   _: TestComponent,
   __: TestComponent,
-  '* {item}': BulletPointListContainer,
+  '* {items[]}': BulletPointListContainer,
 };
 
 // 3. Add a description to the container
@@ -49,11 +49,12 @@ const getModule = moduleShortcut => {
 const getProps = moduleShortcut => {
   const key = getModuleShortcutMatch(moduleShortcut);
   const propNames = key.match(/{[a-zA-Z_\[\]\-]+}/g).map(x => x.substring(1, x.length - 1));
-  const delimiters = key.split(/{[a-zA-Z_\[\]\-]+}/).filter(x=>x);
-  const propValues = moduleShortcut.split(new RegExp(delimiters.map(escapeRegExp).join('|'))).filter(x=>x);
+  const delimiters = key.split(/{[a-zA-Z_\[\]\-]+}/).map(x => x.trim()).filter(x=>x);
+  const propValues = moduleShortcut.split(new RegExp(delimiters.map(escapeRegExp)
+                                    .join('|'))).map(x => x.trim()).filter(x=>x);
 
   const props = Object();
-  for(let i = 0; i < propNames.length; i+=1) {
+  for(let i = 0; i < propValues.length; i+=1) {
     if(propNames[i].endsWith("[]")) {
       const propName = propNames[i].substring(0, propNames[i].length - 2);
       if(props[propName]) {
