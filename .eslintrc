@@ -2,9 +2,11 @@
   "parser": "babel-eslint",
   "rules": {
     "max-len": [1, 120, 2, { "ignoreComments": true }],
-    "prop-types": [1],
+    "prop-types": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "linebreak-style": 0
+    "linebreak-style": 0,
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "no-shadow": "warn"
   },
   "env": {
     "browser": true

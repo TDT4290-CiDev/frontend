@@ -1,72 +1,58 @@
 import React from 'react';
-import uuidv1 from 'uuid/v1';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import CommandInputFieldContainer from './CommandInputFieldContainer';
+import SectionContainer from './SectionContainer';
 import InputField from '../components/InputField';
-import { getModule } from '../utils/modules';
+import { setDocumentTitle } from '../actions/documentActions';
 
 class DocumentContainer extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      title: '',
-      activeModules: [],
-      commandInputFieldFocus: false,
-    };
-  }
-
-  handleTitleChange = e => this.setState({ title: e.target.value });
-
-  changeFocusToCommandInputField = () => {
-    this.setState({ commandInputFieldFocus: true });
-    setTimeout(() => this.setState({ commandInputFieldFocus: false }), 1);
-  };
-
-  addModule = moduleShortcut => {
-    const { activeModules } = this.state;
-    const NewModule = getModule(moduleShortcut);
-    const moduleId = uuidv1();
-    this.setState({
-      activeModules: [
-        ...activeModules,
-        {
-          id: moduleId,
-          module: (
-            <NewModule
-              key={moduleId}
-              id={moduleId}
-              changeFocusToCommandInputField={this.changeFocusToCommandInputField}
-              removeModule={this.removeModule}
-            />
-          ),
-        },
-      ],
-    });
-  };
-
-  removeModule = moduleId => {
-    const { activeModules } = this.state;
-    this.setState({ activeModules: activeModules.filter(activeModule => activeModule.id !== moduleId) });
-    this.changeFocusToCommandInputField();
+  handleTitleChange = e => {
+    const { onTitleChange } = this.props;
+    onTitleChange(e.target.value);
   };
 
   render() {
-    const { title, activeModules, commandInputFieldFocus } = this.state;
+    const { id, title, sections } = this.props;
     return (
       <div className="document-container">
         <InputField
+          id={id}
           className="document-container__title"
           type="text"
           placeholder="Skriv inn dokumenttittel..."
           value={title}
           onChange={this.handleTitleChange}
         />
-        <div className="document-container__active-modules">
-          {activeModules.map(activeModule => activeModule.module)}
+        <div className="document-container__sections">
+          {sections.map(sectionId => (
+            <SectionContainer key={sectionId} id={sectionId} />
+          ))}
         </div>
-        <CommandInputFieldContainer addModuleToForm={this.addModule} focus={commandInputFieldFocus} />
+        <CommandInputFieldContainer />
       </div>
     );
   }
 }
 
-export default DocumentContainer;
+DocumentContainer.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  onTitleChange: PropTypes.func.isRequired,
+  sections: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
+const mapStateToProps = state => ({
+  id: state.document.id,
+  title: state.document.title,
+  sections: state.document.sections,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onTitleChange: title => dispatch(setDocumentTitle(title)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DocumentContainer);
