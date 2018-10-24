@@ -39,7 +39,7 @@ class InputField extends React.Component {
       <input
         id={id}
         ref={this.inputRef}
-        onFocus={!disableOnFocus && this.handleOnFocus}
+        onFocus={!disableOnFocus ? this.handleOnFocus : undefined}
         autoFocus={!disableAutoFocus && activeField === id}
         {...inputProps}
       />
@@ -53,6 +53,7 @@ InputField.propTypes = {
   className: PropTypes.string,
   onChange: PropTypes.func,
   value: PropTypes.string,
+  checked: PropTypes.bool,
   onKeyPress: PropTypes.func,
   activeField: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
@@ -63,7 +64,8 @@ InputField.propTypes = {
 InputField.defaultProps = {
   className: '',
   onChange: null,
-  value: null,
+  value: '',
+  checked: false,
   onKeyPress: null,
   placeholder: null,
   disableAutoFocus: false,
