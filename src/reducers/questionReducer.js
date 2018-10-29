@@ -1,6 +1,7 @@
 import { arrayMove } from 'react-sortable-hoc';
 import { questionActionTypes } from '../actions/questionActions';
-import { bulletPointListActionTypes } from '../actions/bulletPointListActions';
+import { listActionTypes } from '../actions/listActions';
+import { radioButtonListActionTypes } from '../actions/radioButtonActions';
 
 export default (state = [], action) => {
   switch (action.type) {
@@ -18,54 +19,64 @@ export default (state = [], action) => {
         }
         return question;
       });
-    case bulletPointListActionTypes.ADD_BULLET_POINT:
+    case listActionTypes.ADD_LIST_ITEM:
       return state.map(question => {
         if (question.id === action.questionId) {
           return {
             ...question,
-            bulletPoints: [
-              ...question.bulletPoints.slice(0, action.index),
-              action.bulletPoint,
-              ...question.bulletPoints.slice(action.index),
+            listItems: [
+              ...question.listItems.slice(0, action.index),
+              action.listItem,
+              ...question.listItems.slice(action.index),
             ],
           };
         }
         return question;
       });
-    case bulletPointListActionTypes.REMOVE_BULLET_POINT:
+    case listActionTypes.REMOVE_LIST_ITEM:
       return state.map(question => {
         if (question.id === action.questionId) {
           return {
             ...question,
-            bulletPoints: question.bulletPoints.filter(bulletPoint => bulletPoint.id !== action.bulletPointId),
+            listItems: question.listItems.filter(listItem => listItem.id !== action.listItemId),
           };
         }
         return question;
       });
-    case bulletPointListActionTypes.MOVE_BULLET_POINT:
+    case listActionTypes.MOVE_LIST_ITEM:
       return state.map(question => {
         if (question.id === action.questionId) {
           return {
             ...question,
-            bulletPoints: arrayMove(question.bulletPoints, action.oldIndex, action.newIndex),
+            listItems: arrayMove(question.listItems, action.oldIndex, action.newIndex),
           };
         }
         return question;
       });
-    case bulletPointListActionTypes.SET_BULLET_POINT_TEXT:
+    case listActionTypes.SET_LIST_ITEM_TEXT:
       return state.map(question => {
         if (question.id === action.questionId) {
           return {
             ...question,
-            bulletPoints: question.bulletPoints.map(bulletPoint => {
-              if (bulletPoint.id === action.bulletPointId) {
+            listItems: question.listItems.map(listItem => {
+              if (listItem.id === action.listItemId) {
                 return {
-                  ...bulletPoint,
+                  ...listItem,
                   text: action.text,
                 };
               }
-              return bulletPoint;
+              return listItem;
             }),
+          };
+        }
+        return question;
+      });
+    case radioButtonListActionTypes.SET_CHECKED_ITEM:
+      return state.map(question => {
+        if (question.id === action.questionId) {
+          return {
+            ...question,
+            checkedItem: action.id,
           };
         }
         return question;

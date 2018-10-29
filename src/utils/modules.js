@@ -4,6 +4,7 @@ import uuidv1 from 'uuid/v1';
 // 1. Import your module container
 import TestComponent from '../components/TestComponent'; // Remove this later
 import BulletPointListContainer from '../containers/BulletPointListContainer';
+import RadioButtonListContainer from '../containers/RadioButtonListContainer';
 
 // 2. Create a shortcut to the container
 const availableModules = {
@@ -11,6 +12,7 @@ const availableModules = {
   textsvar: TestComponent,
   langsvar: TestComponent,
   punktliste: BulletPointListContainer,
+  radiobutton: RadioButtonListContainer,
 };
 
 // 3. Add a description to the container
@@ -19,6 +21,7 @@ const commandTranslation = {
   _: 'textsvar',
   __: 'langsvar',
   '*': 'punktliste',
+  '()': 'radiobutton',
 };
 
 // 4. Add unique state attributes to new modules of that type
@@ -26,7 +29,8 @@ const uniqueStateAttributes = {
   '[]': {},
   _: {},
   __: {},
-  '*': { bulletPoints: [{ id: uuidv1(), text: '' }] },
+  '*': { listItems: [{ id: uuidv1(), text: '' }] },
+  '()': { listItems: [{ id: uuidv1(), text: '' }], checkedItem: '' },
 };
 
 // 5. Create actions and reducer(s) for your module

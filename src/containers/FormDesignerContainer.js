@@ -3,7 +3,7 @@ import DocumentContainer from './DocumentContainer';
 
 const FormDesignerContainer = () => (
   <div className="form-designer-container">
-    <DocumentContainer />
+    <DocumentContainer editable />
   </div>
 );
 
