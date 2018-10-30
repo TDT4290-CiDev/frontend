@@ -10,7 +10,7 @@ import {
   moveBulletPoint,
   setBulletPointText,
 } from '../actions/bulletPointListActions';
-import { setQuestionTitle, removeQuestion } from '../actions/questionActions';
+import { removeQuestion } from '../actions/questionActions';
 import { setFocus } from '../actions/documentActions';
 
 class BulletPointListContainer extends React.Component {
@@ -90,19 +90,14 @@ class BulletPointListContainer extends React.Component {
     }
   };
 
-  handleTitleChange = e => {
-    const { id, setTitle } = this.props;
-    setTitle(id, e.target.value);
-  };
-
   render() {
-    const { id, title, bulletPoints } = this.props;
+    const { id, title, bulletPoints, onTitleChange } = this.props;
     return (
       <div className="bullet-list-container">
         <InputField
           id={id}
           type="text"
-          onChange={this.handleTitleChange}
+          onChange={onTitleChange}
           onKeyPress={this.handleTitleKeyPress}
           value={title}
           placeholder="Min punktliste..."
@@ -130,7 +125,7 @@ BulletPointListContainer.propTypes = {
   setBulletPointValue: PropTypes.func.isRequired,
   removeBulletPointList: PropTypes.func.isRequired,
   setActiveField: PropTypes.func.isRequired,
-  setTitle: PropTypes.func.isRequired,
+  onTitleChange: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -141,7 +136,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setBulletPointText(questionId, bulletPointId, value)),
   removeBulletPointList: (id, sectionId) => dispatch(removeQuestion(id, sectionId)),
   setActiveField: id => dispatch(setFocus(id)),
-  setTitle: (id, text) => dispatch(setQuestionTitle(id, text)),
 });
 
 export default connect(
