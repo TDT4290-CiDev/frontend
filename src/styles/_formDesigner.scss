@@ -1,3 +1,7 @@
+.form-designer-container  {
+  height: 100%;
+}
+
 .document-container {
   min-height: 90vh;
   max-width: 80%;
@@ -6,4 +10,30 @@
   background-color: #fff;
   border-radius: 0.3% 0.3% 0 0;
   box-shadow: 0 2px 7px 1px rgba(0, 0, 0, 0.5);
+}
+
+.overview-panel {
+  margin: -10vh 0 0 0;
+  height: 100%;
+  width: 10rem;
+  left: -3rem;
+  // border: 1px solid #ccc;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  button {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 10px;
+    border: none;
+    background: none;
+  }
+
+  &.open {
+    left: 0;
+  }
 }
