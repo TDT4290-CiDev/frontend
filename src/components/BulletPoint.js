@@ -26,6 +26,7 @@ BulletPoint.propTypes = {
   text: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onKeyPress: PropTypes.func.isRequired,
+  editable: PropTypes.bool.isRequired,
 };
 
 export default BulletPoint;

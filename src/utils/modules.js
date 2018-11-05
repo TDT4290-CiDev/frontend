@@ -4,6 +4,7 @@ import uuidv1 from 'uuid/v1';
 // 1. Import your module container
 import TestComponent from '../components/TestComponent'; // Remove this later
 import BulletPointListContainer from '../containers/BulletPointListContainer';
+import RadioButtonListContainer from '../containers/RadioButtonListContainer';
 import CheckboxContainer from '../containers/CheckboxContainer';
 
 // 2. Create a shortcut to the container
@@ -12,6 +13,7 @@ const availableModules = {
   textsvar: TestComponent,
   langsvar: TestComponent,
   punktliste: BulletPointListContainer,
+  radiobutton: RadioButtonListContainer,
 };
 
 // 3. Add a description to the container
@@ -20,16 +22,22 @@ const commandTranslation = {
   _: 'textsvar',
   __: 'langsvar',
   '*': 'punktliste',
+  '()': 'radiobutton',
 };
 
-// 4. Add unique state attributes to new modules of that type
-const uniqueStateAttributes = {
-  '[]': { checked: false },
-  _: {},
-  __: {},
-  '*': { bulletPoints: [{ id: uuidv1(), text: '' }] },
+// 4. Add unique state attributes to new modules of that type, if any
+const uniqueStateAttributes = (shortcut, newId) => {
+  switch (shortcut) {
+    case '[]':
+      return { checked: false };
+    case '*':
+      return { listItems: [{ id: newId, text: '' }] };
+    case '()':
+      return { listItems: [{ id: newId, text: '' }], checkedItem: '' };
+    default:
+      return {};
+  }
 };
-
 // 5. Create actions and reducer(s) for your module
 
 // Helper methods
@@ -43,6 +51,8 @@ const getModule = moduleType => availableModules[moduleType];
 
 const getCommandTranslation = command => commandTranslation[command];
 
-const getUniqueStateAttributes = moduleShortcut => uniqueStateAttributes[moduleShortcut];
+const getNewId = () => uuidv1();
+
+const getUniqueStateAttributes = moduleShortcut => uniqueStateAttributes(moduleShortcut, getNewId());
 
 export { getModule, isValidCommand, validCommandsString, getCommandTranslation, getUniqueStateAttributes };

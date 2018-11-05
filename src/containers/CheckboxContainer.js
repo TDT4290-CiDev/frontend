@@ -10,12 +10,16 @@ const CheckboxContainer = ({ id, title, checked, onTitleChange, onToggle }) => {
     onToggle(id);
   };
 
+  const handleTitleChange = e => {
+    onTitleChange(id, e.target.value);
+  };
+
   return (
     <div className="checkbox-container">
       <InputField
         id={`${id}-title`}
         type="text"
-        onChange={onTitleChange}
+        onChange={handleTitleChange}
         value={title}
         placeholder="Checkbox tittel her..."
       />
