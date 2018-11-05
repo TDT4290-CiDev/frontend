@@ -29,6 +29,7 @@ RadioButtonListContainer.propTypes = {
   listItems: PropTypes.arrayOf(PropTypes.object).isRequired,
   checkedItem: PropTypes.string.isRequired,
   editable: PropTypes.bool.isRequired,
+  onTitleChange: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({

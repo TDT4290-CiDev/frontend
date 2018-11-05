@@ -5,10 +5,11 @@ import uuidv1 from 'uuid/v1';
 import TestComponent from '../components/TestComponent'; // Remove this later
 import BulletPointListContainer from '../containers/BulletPointListContainer';
 import RadioButtonListContainer from '../containers/RadioButtonListContainer';
+import CheckboxContainer from '../containers/CheckboxContainer';
 
 // 2. Create a shortcut to the container
 const availableModules = {
-  flervalgsspørsmål: TestComponent,
+  checkbox: CheckboxContainer,
   textsvar: TestComponent,
   langsvar: TestComponent,
   punktliste: BulletPointListContainer,
@@ -17,7 +18,7 @@ const availableModules = {
 
 // 3. Add a description to the container
 const commandTranslation = {
-  '[]': 'flervalgsspørsmål',
+  '[]': 'checkbox',
   _: 'textsvar',
   __: 'langsvar',
   '*': 'punktliste',
@@ -26,7 +27,7 @@ const commandTranslation = {
 
 // 4. Add unique state attributes to new modules of that type
 const uniqueStateAttributes = {
-  '[]': {},
+  '[]': { checked: false },
   _: {},
   __: {},
   '*': { listItems: [{ id: uuidv1(), text: '' }] },

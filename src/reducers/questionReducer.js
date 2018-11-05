@@ -2,6 +2,7 @@ import { arrayMove } from 'react-sortable-hoc';
 import { questionActionTypes } from '../actions/questionActions';
 import { listActionTypes } from '../actions/listActions';
 import { radioButtonListActionTypes } from '../actions/radioButtonActions';
+import { checkboxActionTypes } from '../actions/checkboxActions';
 
 export default (state = [], action) => {
   switch (action.type) {
@@ -77,6 +78,16 @@ export default (state = [], action) => {
           return {
             ...question,
             checkedItem: action.id,
+          };
+        }
+        return question;
+      });
+    case checkboxActionTypes.TOGGLE_CHECKBOX:
+      return state.map(question => {
+        if (question.id === action.id) {
+          return {
+            ...question,
+            checked: !question.checked,
           };
         }
         return question;

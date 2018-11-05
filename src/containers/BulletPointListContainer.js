@@ -14,6 +14,7 @@ BulletPointListContainer.propTypes = {
   title: PropTypes.string.isRequired,
   listItems: PropTypes.arrayOf(PropTypes.object).isRequired,
   editable: PropTypes.bool.isRequired,
+  onTitleChange: PropTypes.func.isRequired,
 };
 
 export default BulletPointListContainer;

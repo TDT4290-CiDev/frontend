@@ -6,7 +6,7 @@ import InputField from '../components/InputField';
 import RadioButtonList from '../components/RadioButtonList';
 import BulletPointList from '../components/BulletPointList';
 import { addListItem, removeListItem, moveListItem, setListItemText } from '../actions/listActions';
-import { setQuestionTitle, removeQuestion } from '../actions/questionActions';
+import { removeQuestion } from '../actions/questionActions';
 import { setFocus } from '../actions/documentActions';
 
 class GenericListContainer extends React.Component {
@@ -87,8 +87,8 @@ class GenericListContainer extends React.Component {
   };
 
   handleTitleChange = e => {
-    const { id, setTitle } = this.props;
-    setTitle(id, e.target.value);
+    const { id, onTitleChange } = this.props;
+    onTitleChange(id, e.target.value);
   };
 
   render() {
@@ -154,7 +154,7 @@ GenericListContainer.propTypes = {
   setListItemValue: PropTypes.func.isRequired,
   removeList: PropTypes.func.isRequired,
   setActiveField: PropTypes.func.isRequired,
-  setTitle: PropTypes.func.isRequired,
+  onTitleChange: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -164,7 +164,6 @@ const mapDispatchToProps = dispatch => ({
   setListItemValue: (questionId, listItemId, value) => dispatch(setListItemText(questionId, listItemId, value)),
   removeList: (id, sectionId) => dispatch(removeQuestion(id, sectionId)),
   setActiveField: id => dispatch(setFocus(id)),
-  setTitle: (id, text) => dispatch(setQuestionTitle(id, text)),
 });
 
 export default connect(
