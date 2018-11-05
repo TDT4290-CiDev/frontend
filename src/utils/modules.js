@@ -25,15 +25,19 @@ const commandTranslation = {
   '()': 'radiobutton',
 };
 
-// 4. Add unique state attributes to new modules of that type
-const uniqueStateAttributes = {
-  '[]': { checked: false },
-  _: {},
-  __: {},
-  '*': { listItems: [{ id: uuidv1(), text: '' }] },
-  '()': { listItems: [{ id: uuidv1(), text: '' }], checkedItem: '' },
+// 4. Add unique state attributes to new modules of that type, if any
+const uniqueStateAttributes = (shortcut, newId) => {
+  switch (shortcut) {
+    case '[]':
+      return { checked: false };
+    case '*':
+      return { listItems: [{ id: newId, text: '' }] };
+    case '()':
+      return { listItems: [{ id: newId, text: '' }], checkedItem: '' };
+    default:
+      return {};
+  }
 };
-
 // 5. Create actions and reducer(s) for your module
 
 // Helper methods
@@ -47,6 +51,8 @@ const getModule = moduleType => availableModules[moduleType];
 
 const getCommandTranslation = command => commandTranslation[command];
 
-const getUniqueStateAttributes = moduleShortcut => uniqueStateAttributes[moduleShortcut];
+const getNewId = () => uuidv1();
+
+const getUniqueStateAttributes = moduleShortcut => uniqueStateAttributes(moduleShortcut, getNewId());
 
 export { getModule, isValidCommand, validCommandsString, getCommandTranslation, getUniqueStateAttributes };
