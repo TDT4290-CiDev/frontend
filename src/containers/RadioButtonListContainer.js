@@ -10,7 +10,7 @@ const RadioButtonListContainer = ({ id, checkedItem, setCheckedItem, ...remainin
   };
 
   return (
-    <div className="bullet-list-container">
+    <div className="radio-list-container">
       <GenericListContainer
         id={id}
         onCheckedItemChange={handleCheckedItem}
