@@ -6,13 +6,14 @@ import TestComponent from '../components/TestComponent'; // Remove this later
 import BulletPointListContainer from '../containers/BulletPointListContainer';
 import RadioButtonListContainer from '../containers/RadioButtonListContainer';
 import CheckboxContainer from '../containers/CheckboxContainer';
+import LongAnswerContainer from '../containers/LongAnswerContainer';
 import ShortAnswerContainer from '../containers/ShortAnswerContainer';
 
 // 2. Create a shortcut to the container
 const availableModules = {
   checkbox: CheckboxContainer,
   kortsvar: ShortAnswerContainer,
-  langsvar: TestComponent,
+  langsvar: LongAnswerContainer,
   punktliste: BulletPointListContainer,
   radiobutton: RadioButtonListContainer,
 };
