@@ -111,6 +111,7 @@ class GenericListContainer extends React.Component {
         <InputField
           id={id}
           type="text"
+          className="title"
           onChange={this.handleTitleChange}
           onKeyPress={this.handleTitleKeyPress}
           value={title}

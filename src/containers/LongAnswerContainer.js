@@ -17,7 +17,13 @@ const LongAnswerContainer = ({ id, title, editable, onTitleChange }) => {
         placeholder="Langsvar..."
         disabled={editable}
       />
-      <textarea id={`${id}-input`} type="text" className="long-answer-container__input" disabled={!editable} />
+      <textarea
+        id={`${id}-input`}
+        placeholder="Langsvar"
+        type="text"
+        className="long-answer-container__input"
+        disabled={!editable}
+      />
     </div>
   );
 };
