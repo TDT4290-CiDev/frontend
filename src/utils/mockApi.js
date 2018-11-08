@@ -17,7 +17,6 @@ export default {
           id: 12312333,
           type: 'bulletPointList',
           title: 'My bullet point list ',
-          fieldInFocus: 0,
           bulletPoints: [
             {
               id: 1,
@@ -58,7 +57,6 @@ export default {
           id: 12343244,
           type: 'bulletPointList',
           title: 'My bullet point list ',
-          fieldInFocus: 0,
           bulletPoints: [
             {
               id: 1,
@@ -97,7 +95,7 @@ Normalized mock data would probably look like this:
     sections: [11231233, 24324234],
   }
   questions: [
-    12312333: {
+    {
       id: 12312333,
       type: 'bulletPointList',
       title: 'My bullet point list ',
@@ -113,19 +111,19 @@ Normalized mock data would probably look like this:
         },
       ],
     },
-    12312323: {
+    {
       id: 12312323,
       type: 'checkbox',
       title: 'Do you want me?',
       checked: false,
     },
-    12323123: {
+    {
       id: 12323123,
       type: 'textField',
       title: 'Last name',
       value: 'Reime',
     },
-    12343244: {
+    {
       id: 12343244,
       type: 'bulletPointList',
       title: 'My bullet point list ',
@@ -141,13 +139,13 @@ Normalized mock data would probably look like this:
         },
       ],
     },
-    25345344: {
+    {
       id: 25345344,
       type: 'textField',
       title: 'Last name',
       value: 'Reime',
     },
-    34353453: {
+    {
       id: 34353453,
       type: 'checkbox',
       title: 'Do you want me?',
@@ -155,7 +153,7 @@ Normalized mock data would probably look like this:
     },
   ],
   sections: [
-    11231233: {
+    {
       id: 11231233,
       title: {
         text: 'Section 1',
@@ -167,7 +165,7 @@ Normalized mock data would probably look like this:
       },
       questions: [12312333, 12312323, 12323123],
     },
-    24324234: {
+    {
       id: 24324234,
       title: {
         text: 'Section 2',

@@ -5,7 +5,7 @@ import OverviewPanelContainer from './OverviewPanelContainer';
 const FormDesignerContainer = () => (
   <div className="form-designer-container">
     <OverviewPanelContainer />
-    <DocumentContainer editable />
+    <DocumentContainer editable={false} />
   </div>
 );
 
