@@ -148,7 +148,7 @@ GenericListContainer.propTypes = {
   title: PropTypes.string.isRequired,
   listItems: PropTypes.arrayOf(PropTypes.object).isRequired,
   type: PropTypes.string.isRequired,
-  editable: PropTypes.bool.isRequired,
+  designing: PropTypes.bool.isRequired,
   addNewListItem: PropTypes.func.isRequired,
   removeListItem: PropTypes.func.isRequired,
   moveListItem: PropTypes.func.isRequired,

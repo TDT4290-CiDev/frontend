@@ -5,7 +5,7 @@ import InputField from '../components/InputField';
 import Question from '../components/Question';
 import { setSectionTitle, setSectionIngress } from '../actions/sectionActions';
 
-const SectionContainer = ({ id, sections, setTitle, setIngress, editable }) => {
+const SectionContainer = ({ id, sections, setTitle, setIngress, designing }) => {
   const { title, ingress, questions } = sections.find(x => x.id === id);
 
   const handleTitleChange = e => {
@@ -39,7 +39,7 @@ const SectionContainer = ({ id, sections, setTitle, setIngress, editable }) => {
         />
       )}
       {questions.map(questionId => (
-        <Question key={questionId} id={questionId} sectionId={id} editable={editable} />
+        <Question key={questionId} id={questionId} sectionId={id} designing={designing} />
       ))}
     </div>
   );
@@ -50,7 +50,7 @@ SectionContainer.propTypes = {
   sections: PropTypes.arrayOf(PropTypes.object).isRequired,
   setTitle: PropTypes.func.isRequired,
   setIngress: PropTypes.func.isRequired,
-  editable: PropTypes.bool.isRequired,
+  designing: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({

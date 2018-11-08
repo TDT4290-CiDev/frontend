@@ -41,7 +41,7 @@ RadioButton.propTypes = {
   onKeyPress: PropTypes.func.isRequired,
   onChecked: PropTypes.func.isRequired,
   checked: PropTypes.bool.isRequired,
-  editable: PropTypes.bool.isRequired,
+  designing: PropTypes.bool.isRequired,
 };
 
 export default RadioButton;
