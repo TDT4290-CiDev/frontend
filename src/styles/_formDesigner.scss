@@ -91,7 +91,25 @@ $dark-bg-color: #f5f5f5;
       }
 
       .checkbox {
-        width: auto;
+        margin: 10px;
+        vertical-align: center;
+        width: 18px;
+        height: 18px;
+      }
+
+      span {
+        font-family: $text-font;
+        color: $text-color;
+        font-size: 18px;
+      }
+
+      i {
+        width: 25px;
+        height: 27px;
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        color: $placeholder-color;
         margin: 10px;
       }
     }
