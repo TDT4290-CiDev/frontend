@@ -17,6 +17,57 @@ $dark-bg-color: #f5f5f5;
     outline: none;
   }
 
+  /* Hiked up here because of specificity issues */
+  .document-container input {
+    border: none;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 18px;
+    font-family: $text-font;
+    color: $text-color;
+    background-color: $background-color;
+  }
+
+  .drag-handle {
+    width: 25px;
+    height: 27px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    color: $placeholder-color;
+  }
+
+  body > .bullet-point {
+    input {
+      display: inline-block;
+      width: calc(100% - 50px);
+      padding: 2px 0;
+      margin-left: -3px;
+      font-family: $text-font;
+      font-size: 18px;
+    }
+  }
+
+  body > .radio-button {
+    input {
+      display: inline-block;
+      padding: 5px 0;
+    }
+
+    input[type='radio'] {
+      width: auto;
+      vertical-align: middle;
+    }
+
+    input[type='text'] {
+      width: calc(100% - 50px);
+      font-family: $text-font;
+      font-size: 18px;
+      margin-left: -3px;
+      padding: 2px 0;
+    }
+  }
+
   .document-container {
     min-height: calc(100vh - 50px);
     max-width: 80%;
@@ -26,16 +77,6 @@ $dark-bg-color: #f5f5f5;
     background-color: $background-color;
     border-radius: 0.3% 0.3% 0 0;
     box-shadow: 0 2px 7px 1px rgba(0, 0, 0, 0.5);
-
-    input {
-      border: none;
-      width: 100%;
-      padding: 10px 0;
-      font-size: 18px;
-      font-family: $text-font;
-      color: $text-color;
-      background-color: $background-color;
-    }
 
     .generic-list-container {
       .title {
@@ -69,15 +110,6 @@ $dark-bg-color: #f5f5f5;
 
         input[type='text'] {
           width: calc(100% - 50px);
-        }
-
-        .drag-handle {
-          width: 25px;
-          height: 27px;
-          display: inline-block;
-          text-align: center;
-          vertical-align: middle;
-          color: $placeholder-color;
         }
       }
     }
@@ -135,15 +167,6 @@ $dark-bg-color: #f5f5f5;
       }
 
       .bullet-point {
-        .drag-handle {
-          width: 25px;
-          height: 27px;
-          display: inline-block;
-          text-align: center;
-          vertical-align: middle;
-          color: $placeholder-color;
-        }
-
         input {
           display: inline-block;
           width: calc(100% - 25px);
