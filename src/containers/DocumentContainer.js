@@ -14,7 +14,7 @@ class DocumentContainer extends React.Component {
 
   render() {
     const { id, title, sections, designing } = this.props;
-    return (
+    return designing ? (
       <div className="document-container">
         <InputField
           id={id}
@@ -30,6 +30,17 @@ class DocumentContainer extends React.Component {
           ))}
         </div>
         <CommandInputFieldContainer />
+      </div>
+    ) : (
+      <div className="document-container">
+        <p id={id} className="document-container__title">
+          {title}
+        </p>
+        <div className="document-container__sections">
+          {sections.map(sectionId => (
+            <SectionContainer key={sectionId} id={sectionId} designing={designing} />
+          ))}
+        </div>
       </div>
     );
   }

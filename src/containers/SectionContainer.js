@@ -18,26 +18,36 @@ const SectionContainer = ({ id, sections, setTitle, setIngress, designing }) => 
 
   return (
     <div className="section-container">
-      {!title.isHidden && (
-        <InputField
-          id={`${id}-title`}
-          className="section-container__title"
-          type="text"
-          placeholder="Skriv inn seksjonstittel..."
-          value={title.text}
-          onChange={handleTitleChange}
-        />
-      )}
-      {!ingress.isHidden && (
-        <InputField
-          id={`${id}-ingress`}
-          className="section-container__ingress"
-          type="text"
-          placeholder="Skriv inn seksjonsingress..."
-          value={ingress.text}
-          onChange={handleIngressChange}
-        />
-      )}
+      {!title.isHidden &&
+        (designing ? (
+          <InputField
+            id={`${id}-title`}
+            className="section-container__title"
+            type="text"
+            placeholder="Skriv inn seksjonstittel..."
+            value={title.text}
+            onChange={handleTitleChange}
+          />
+        ) : (
+          <p id={`${id}-title`} className="section-container__title">
+            {title.text}
+          </p>
+        ))}
+      {!ingress.isHidden &&
+        (designing ? (
+          <InputField
+            id={`${id}-ingress`}
+            className="section-container__ingress"
+            type="text"
+            placeholder="Skriv inn seksjonsingress..."
+            value={ingress.text}
+            onChange={handleIngressChange}
+          />
+        ) : (
+          <p id={`${id}-ingress`} className="section-container__ingress">
+            {ingress.text}
+          </p>
+        ))}
       {questions.map(questionId => (
         <Question key={questionId} id={questionId} sectionId={id} designing={designing} />
       ))}
