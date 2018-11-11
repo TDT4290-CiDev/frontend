@@ -9,8 +9,8 @@ const ShortcutButtons = ({ onClick }) => (
     <button type="button" onClick={() => onClick('()')}>
       Radiobutton
     </button>
-    <button type="button" onClick={() => onClick('*')}>
-      Punktliste
+    <button type="button" onClick={() => onClick('[]')}>
+      Checkbox
     </button>
   </div>
 );
