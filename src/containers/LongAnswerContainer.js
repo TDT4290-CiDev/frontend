@@ -15,14 +15,14 @@ const LongAnswerContainer = ({ id, title, designing, onTitleChange }) => {
         onChange={handleTitleChange}
         value={title}
         placeholder="Langsvar..."
-        disabled={designing}
+        disabled={!designing}
       />
       <textarea
         id={`${id}-input`}
         placeholder="Langsvar"
         type="text"
         className="long-answer-container__input"
-        disabled={!designing}
+        disabled={designing}
       />
     </div>
   );

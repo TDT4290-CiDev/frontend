@@ -16,14 +16,14 @@ const ShortAnswerContainer = ({ id, title, designing, onTitleChange }) => {
         onChange={handleTitleChange}
         value={title}
         placeholder="Kortsvar..."
-        disabled={designing}
+        disabled={!designing}
       />
       <InputField
         id={`${id}-input`}
         type="text"
         className="short-answer-container__input"
         placeholder={title}
-        disabled={!designing}
+        disabled={designing}
       />
     </div>
   );
