@@ -1,7 +1,7 @@
 import axios from 'axios';
 import API_URL from '../config';
 
-const instance = axios.create({ baseURL: API_URL, header: [('Access-Control-Allow-Origin': '*')] });
+const instance = axios.create({ baseURL: API_URL });
 
 export function get(url) {
   return instance.get(`${url}`);

@@ -4,6 +4,7 @@ export const documentActionTypes = {
   SET_DOCUMENT_TITLE: 'SET_DOCUMENT_TITLE',
   SET_FOCUS: 'SET_FOCUS',
   LOAD_FORM: 'LOAD_FORM',
+  CLEAR_STATE: 'CLEAR_STATE',
 };
 
 export const setDocumentTitle = title => dispatch => {
@@ -29,4 +30,11 @@ export const fetchExistingForm = id => async dispatch => {
       });
     })
     .catch(err => console.log(err));
+};
+
+export const clearState = () => dispatch => {
+  console.log('clear');
+  dispatch({
+    type: documentActionTypes.CLEAR_STATE,
+  });
 };

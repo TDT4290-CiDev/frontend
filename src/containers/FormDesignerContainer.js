@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import DocumentContainer from './DocumentContainer';
 import OverviewPanelContainer from './OverviewPanelContainer';
-import { fetchExistingForm } from '../actions/documentActions';
+import { fetchExistingForm, clearState } from '../actions/documentActions';
 import { post, put } from '../utils/api';
 
 class FormDesignerContainer extends React.Component {
@@ -15,10 +15,13 @@ class FormDesignerContainer extends React.Component {
     const { match, getForm } = this.props;
     if (Object.keys(match.params).length !== 0) {
       await getForm(match.params.id);
-    } else {
-      // clearState();
     }
     this.setState({ isLoadingForm: false });
+  }
+
+  componentWillUnmount() {
+    const { clearState } = this.props;
+    clearState();
   }
 
   saveForm = () => {
@@ -62,6 +65,7 @@ class FormDesignerContainer extends React.Component {
 FormDesignerContainer.propTypes = {
   match: PropTypes.shape(PropTypes.object).isRequired,
   getForm: PropTypes.func.isRequired,
+  clearState: PropTypes.func.isRequired,
   form: PropTypes.shape({
     document: PropTypes.object,
     sections: PropTypes.array,
@@ -75,6 +79,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getForm: id => dispatch(fetchExistingForm(id)),
+  clearState: () => dispatch(clearState()),
 });
 
 export default connect(

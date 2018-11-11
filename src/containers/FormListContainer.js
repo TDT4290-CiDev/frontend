@@ -14,7 +14,6 @@ class FormListContainer extends React.Component {
     try {
       const { data } = await get('forms/');
       this.setState({ forms: data.data, loadingData: false });
-      console.log(data.data);
     } catch (e) {
       console.error('Error: ', e);
       this.setState({ apiError: true });
