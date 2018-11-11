@@ -1,5 +1,8 @@
-.form-designer-container  {
+.form-designer-container {
   height: 100%;
+  &__save-button {
+    float: right;
+  }
 }
 
 .document-container {

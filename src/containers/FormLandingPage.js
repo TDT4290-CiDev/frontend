@@ -7,10 +7,10 @@ class FormLandingPage extends React.Component {
   render() {
     return (
       <div className="form-landing-page">
-        <Link className="form-landing-page__link" to="/form-designer">
+        <Link className="form-landing-page__link" to="/new-form">
           Nytt skjema
         </Link>
-        <Link className="form-landing-page__link" to="/forms">
+        <Link className="form-landing-page__link" to="/existing-forms">
           Eksisterende skjema
         </Link>
       </div>
