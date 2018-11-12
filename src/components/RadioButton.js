@@ -19,7 +19,6 @@ const RadioButton = SortableElement(({ id, listIndex, text, onTextChange, onChec
 
   return (
     <div className="radio-button">
-      <DragHandle />
       <InputField
         id={`${id}-radio`}
         type="radio"
@@ -29,6 +28,7 @@ const RadioButton = SortableElement(({ id, listIndex, text, onTextChange, onChec
         disableOnFocus
         disableAutoFocus
       />
+      <DragHandle />
       <InputField id={id} type="text" onChange={handleTextChange} onKeyDown={handleKeyPress} value={text} />
     </div>
   );

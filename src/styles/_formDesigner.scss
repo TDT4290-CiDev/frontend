@@ -1,42 +1,216 @@
-.form-designer-container {
+$title-font: 'Montserrat', sans-serif;
+$text-font: 'Spectral', serif;
+$text-color: #3e3e3e;
+$border-color: #979797;
+$background-color: #fbfbfb;
+$blue: #3a94fd;
+$placeholder-color: #a9a9a9;
+$dark-bg-color: #f5f5f5;
+
+.form-designer-container  {
   height: 100%;
   &__save-button {
     float: right;
   }
 }
 
-.document-container {
-  min-height: 90vh;
-  max-width: 80%;
-  margin: 10vh auto 0 auto;
-  padding: 2em;
-  background-color: #fff;
-  border-radius: 0.3% 0.3% 0 0;
-  box-shadow: 0 2px 7px 1px rgba(0, 0, 0, 0.5);
-}
-
-.overview-panel {
-  margin: -10vh 0 0 0;
-  height: 100%;
-  width: 10rem;
-  left: -3rem;
-  // border: 1px solid #ccc;
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  button {
-    max-width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding: 10px;
-    border: none;
-    background: none;
+@media screen {
+  textarea:focus,
+  input:focus {
+    outline: none;
   }
 
-  &.open {
-    left: 0;
+  /* Hiked up here because of specificity issues */
+  .document-container input {
+    border: none;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 18px;
+    font-family: $text-font;
+    color: $text-color;
+    background-color: $background-color;
+  }
+
+  .drag-handle {
+    width: 25px;
+    height: 27px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    color: $placeholder-color;
+  }
+
+  body > .bullet-point {
+    input {
+      display: inline-block;
+      width: calc(100% - 50px);
+      padding: 2px 0;
+      margin-left: -3px;
+      font-family: $text-font;
+      font-size: 18px;
+    }
+  }
+
+  body > .radio-button {
+    input {
+      display: inline-block;
+      padding: 5px 0;
+    }
+
+    input[type='radio'] {
+      width: auto;
+      vertical-align: middle;
+    }
+
+    input[type='text'] {
+      width: calc(100% - 50px);
+      font-family: $text-font;
+      font-size: 18px;
+      margin-left: -3px;
+      padding: 2px 0;
+    }
+  }
+
+  .document-container {
+    min-height: calc(100vh - 50px);
+    max-width: 80%;
+    width: 900px;
+    margin: 50px auto 0 auto;
+    padding: 50px;
+    background-color: $background-color;
+    border-radius: 0.3% 0.3% 0 0;
+    box-shadow: 0 2px 7px 1px rgba(0, 0, 0, 0.5);
+
+    .generic-list-container {
+      .title {
+        font-weight: 700;
+        padding-bottom: 5px;
+      }
+    }
+
+    .checkbox-container {
+      input {
+        width: calc(100% - 100px);
+      }
+
+      .checkbox {
+        width: auto;
+        margin: 10px;
+      }
+    }
+
+    .radio-list-container {
+      .radio-button {
+        input {
+          display: inline-block;
+          padding: 5px 0;
+        }
+
+        input[type='radio'] {
+          width: auto;
+          vertical-align: middle;
+        }
+
+        input[type='text'] {
+          width: calc(100% - 50px);
+        }
+      }
+    }
+
+    .document-container__title {
+      font-size: 42px;
+      font-family: $title-font;
+      color: $text-color;
+    }
+
+    .section-container__title {
+      font-family: $title-font;
+      font-weight: 700;
+      font-size: 24px;
+    }
+
+    .short-answer-container {
+      .short-answer-container__label {
+        font-family: $title-font;
+        font-size: 12px;
+        padding-bottom: 0;
+        display: block;
+      }
+
+      .short-answer-container__input {
+        border: 2px solid $border-color;
+        padding: 10px;
+      }
+    }
+
+    .long-answer-container {
+      .long-answer-container__label {
+        font-family: $title-font;
+        font-size: 12px;
+        padding-bottom: 0;
+        display: block;
+      }
+
+      .long-answer-container__input {
+        border: 2px solid $border-color;
+        padding: 10px;
+        width: 100%;
+        background-color: $background-color;
+        font-family: $text-font;
+        font-size: 18px;
+        color: $placeholder-color;
+        resize: none;
+      }
+    }
+
+    .bullet-list-container {
+      .bullet-list__title {
+        padding-bottom: 5px;
+        font-weight: 700;
+      }
+
+      .bullet-point {
+        input {
+          display: inline-block;
+          width: calc(100% - 25px);
+          padding: 5px 0;
+        }
+      }
+    }
+  }
+
+  .overview-panel {
+    margin: -10vh 0 0 0;
+    height: 100%;
+    width: 10rem;
+    left: -3rem;
+    // border: 1px solid #ccc;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    button {
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 10px;
+      border: none;
+      background: none;
+      text-align: left;
+    }
+
+    button:disabled {
+      color: $blue;
+    }
+
+    .active > p {
+      color: $blue;
+    }
+
+    &.open {
+      left: 0;
+    }
   }
 }
