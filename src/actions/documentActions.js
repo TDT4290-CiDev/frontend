@@ -33,7 +33,6 @@ export const fetchExistingForm = id => async dispatch => {
 };
 
 export const clearState = () => dispatch => {
-  console.log('clear');
   dispatch({
     type: documentActionTypes.CLEAR_STATE,
   });

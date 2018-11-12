@@ -32,13 +32,11 @@ class FormDesignerContainer extends React.Component {
     delete form.document.existingForm;
 
     if (existingForm) {
-      console.log('put');
       put(`/forms/${id}`, form)
         .then(res => console.log(res))
         .catch(err => console.log(err));
     } else {
-      console.log('post');
-      post('/forms', form)
+      post('/forms/', form)
         .then(res => console.log(res))
         .catch(err => console.log(err));
     }
@@ -63,7 +61,6 @@ class FormDesignerContainer extends React.Component {
 }
 
 FormDesignerContainer.propTypes = {
-  match: PropTypes.shape(PropTypes.object).isRequired,
   getForm: PropTypes.func.isRequired,
   clearState: PropTypes.func.isRequired,
   form: PropTypes.shape({
