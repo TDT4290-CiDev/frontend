@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import InputField from '../components/InputField';
 
-const ShortAnswerContainer = ({ id, title, editable, onTitleChange }) => {
+const ShortAnswerContainer = ({ id, title, designing, onTitleChange }) => {
   const handleTitleChange = e => {
     onTitleChange(id, e.target.value);
   };
@@ -16,14 +16,14 @@ const ShortAnswerContainer = ({ id, title, editable, onTitleChange }) => {
         onChange={handleTitleChange}
         value={title}
         placeholder="Kortsvar..."
-        disabled={editable}
+        disabled={!designing}
       />
       <InputField
         id={`${id}-input`}
         type="text"
         className="short-answer-container__input"
         placeholder={title}
-        disabled={!editable}
+        disabled={designing}
       />
     </div>
   );
@@ -32,7 +32,7 @@ const ShortAnswerContainer = ({ id, title, editable, onTitleChange }) => {
 ShortAnswerContainer.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  editable: PropTypes.bool.isRequired,
+  designing: PropTypes.bool.isRequired,
   onTitleChange: PropTypes.func.isRequired,
 };
 export default ShortAnswerContainer;

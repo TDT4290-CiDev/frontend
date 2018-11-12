@@ -4,7 +4,7 @@ import { SortableContainer } from 'react-sortable-hoc';
 import RadioButton from './RadioButton';
 
 const RadioButtonList = SortableContainer(
-  ({ radioButtons, onRadioButtonTextChange, onRadioButtonKeyPress, onCheckedItemChange, checkedItem, editable }) => (
+  ({ radioButtons, onRadioButtonTextChange, onRadioButtonKeyPress, onCheckedItemChange, checkedItem, designing }) => (
     <div>
       {radioButtons.map((radioButton, index) => (
         <RadioButton
@@ -17,7 +17,7 @@ const RadioButtonList = SortableContainer(
           checked={checkedItem === radioButton.id}
           onTextChange={onRadioButtonTextChange}
           onKeyPress={onRadioButtonKeyPress}
-          editable={editable}
+          designing={designing}
         />
       ))}
     </div>
@@ -29,7 +29,7 @@ RadioButtonList.propTypes = {
   onRadioButtonTextChange: PropTypes.func.isRequired,
   onRadioButtonKeyPress: PropTypes.func.isRequired,
   onCheckedItemChange: PropTypes.func.isRequired,
-  editable: PropTypes.bool.isRequired,
+  designing: PropTypes.bool.isRequired,
 };
 
 export default RadioButtonList;

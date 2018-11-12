@@ -51,7 +51,7 @@ class FormDesignerContainer extends React.Component {
     return (
       <div className="form-designer-container">
         <OverviewPanelContainer />
-        <DocumentContainer editable={false} />
+        <DocumentContainer designing />
         <button type="button" className="form-designer-container__save-button" onClick={this.saveForm}>
           Lagre
         </button>

@@ -19,7 +19,7 @@ class CommandInputFieldContainer extends React.Component {
   handleKeyPress = e => {
     const { inputText } = this.state;
     const { addNewSection, addNewQuestion, sections, setActiveField } = this.props;
-    if (e.key === 'Enter') {
+    if (['Enter', 'Spacebar', ' '].includes(e.key)) {
       if (isValidCommand(inputText)) {
         try {
           const sectionId = sections[sections.length - 1].id;
