@@ -1,4 +1,5 @@
 import { arrayMove } from 'react-sortable-hoc';
+import { documentActionTypes } from '../actions/documentActions';
 import { questionActionTypes } from '../actions/questionActions';
 import { listActionTypes } from '../actions/listActions';
 import { radioButtonListActionTypes } from '../actions/radioButtonActions';
@@ -6,6 +7,8 @@ import { checkboxActionTypes } from '../actions/checkboxActions';
 
 export default (state = [], action) => {
   switch (action.type) {
+    case documentActionTypes.LOAD_FORM:
+      return action.form.questions;
     case questionActionTypes.ADD_QUESTION:
       return [...state, action.question];
     case questionActionTypes.REMOVE_QUESTION:

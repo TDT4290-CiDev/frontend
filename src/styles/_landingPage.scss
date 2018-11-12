@@ -1,0 +1,15 @@
+.form-landing-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  &__link {
+    display: block;
+    height: 200px;
+    width: 50%;
+    background-color: white;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+}

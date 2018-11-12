@@ -13,7 +13,7 @@ BulletPointListContainer.propTypes = {
   sectionId: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   listItems: PropTypes.arrayOf(PropTypes.object).isRequired,
-  editable: PropTypes.bool.isRequired,
+  designing: PropTypes.bool.isRequired,
   onTitleChange: PropTypes.func.isRequired,
 };
 

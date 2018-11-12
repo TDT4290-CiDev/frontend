@@ -42,7 +42,7 @@ class CommandInputFieldContainer extends React.Component {
 
   handleKeyPress = e => {
     const { inputText } = this.state;
-    if (e.key === 'Enter') {
+    if (['Enter', 'Spacebar', ' '].includes(e.key)) {
       if (isValidCommand(inputText)) {
         this.createNewQuestion(inputText);
         this.setState({ inputText: '' });
