@@ -104,19 +104,26 @@ class GenericListContainer extends React.Component {
       removeList,
       setActiveField,
       setTitle,
+      designing,
       ...remainingProps
     } = this.props;
     return (
       <div className="generic-list-container">
-        <InputField
-          id={id}
-          type="text"
-          className="title"
-          onChange={this.handleTitleChange}
-          onKeyPress={this.handleTitleKeyPress}
-          value={title}
-          placeholder="Min liste..."
-        />
+        {designing ? (
+          <InputField
+            id={id}
+            type="text"
+            className="title"
+            onChange={this.handleTitleChange}
+            onKeyPress={this.handleTitleKeyPress}
+            value={title}
+            placeholder="Min liste..."
+          />
+        ) : (
+          <p id={id} className="title">
+            {title}
+          </p>
+        )}
         {type === 'bulletPointList' && (
           <BulletPointList
             bulletPoints={listItems}
@@ -124,6 +131,7 @@ class GenericListContainer extends React.Component {
             onBulletPointKeyPress={this.handleListItemKeyPress}
             onSortEnd={this.handleSortEnd}
             useDragHandle
+            designing={designing}
             {...remainingProps}
           />
         )}
@@ -134,6 +142,7 @@ class GenericListContainer extends React.Component {
             onRadioButtonKeyPress={this.handleListItemKeyPress}
             onSortEnd={this.handleSortEnd}
             useDragHandle
+            designing={designing}
             {...remainingProps}
           />
         )}
@@ -148,7 +157,7 @@ GenericListContainer.propTypes = {
   title: PropTypes.string.isRequired,
   listItems: PropTypes.arrayOf(PropTypes.object).isRequired,
   type: PropTypes.string.isRequired,
-  editable: PropTypes.bool.isRequired,
+  designing: PropTypes.bool.isRequired,
   addNewListItem: PropTypes.func.isRequired,
   removeListItem: PropTypes.func.isRequired,
   moveListItem: PropTypes.func.isRequired,

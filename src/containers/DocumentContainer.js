@@ -13,8 +13,8 @@ class DocumentContainer extends React.Component {
   };
 
   render() {
-    const { id, title, sections, editable } = this.props;
-    return (
+    const { id, title, sections, designing } = this.props;
+    return designing ? (
       <div className="document-container">
         <InputField
           id={id}
@@ -26,10 +26,21 @@ class DocumentContainer extends React.Component {
         />
         <div className="document-container__sections">
           {sections.map(sectionId => (
-            <SectionContainer key={sectionId} id={sectionId} editable={editable} />
+            <SectionContainer key={sectionId} id={sectionId} designing={designing} />
           ))}
         </div>
         <CommandInputFieldContainer />
+      </div>
+    ) : (
+      <div className="document-container">
+        <p id={id} className="document-container__title">
+          {title}
+        </p>
+        <div className="document-container__sections">
+          {sections.map(sectionId => (
+            <SectionContainer key={sectionId} id={sectionId} designing={designing} />
+          ))}
+        </div>
       </div>
     );
   }
@@ -40,7 +51,7 @@ DocumentContainer.propTypes = {
   title: PropTypes.string.isRequired,
   onTitleChange: PropTypes.func.isRequired,
   sections: PropTypes.arrayOf(PropTypes.string).isRequired,
-  editable: PropTypes.bool.isRequired,
+  designing: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({

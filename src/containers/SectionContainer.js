@@ -5,7 +5,7 @@ import InputField from '../components/InputField';
 import Question from '../components/Question';
 import { setSectionTitle, setSectionIngress } from '../actions/sectionActions';
 
-const SectionContainer = ({ id, sections, setTitle, setIngress, editable }) => {
+const SectionContainer = ({ id, sections, setTitle, setIngress, designing }) => {
   const { title, ingress, questions } = sections.find(x => x.id === id);
 
   const handleTitleChange = e => {
@@ -18,28 +18,38 @@ const SectionContainer = ({ id, sections, setTitle, setIngress, editable }) => {
 
   return (
     <div className="section-container">
-      {!title.isHidden && (
-        <InputField
-          id={`${id}-title`}
-          className="section-container__title"
-          type="text"
-          placeholder="Skriv inn seksjonstittel..."
-          value={title.text}
-          onChange={handleTitleChange}
-        />
-      )}
-      {!ingress.isHidden && (
-        <InputField
-          id={`${id}-ingress`}
-          className="section-container__ingress"
-          type="text"
-          placeholder="Skriv inn seksjonsingress..."
-          value={ingress.text}
-          onChange={handleIngressChange}
-        />
-      )}
+      {!title.isHidden &&
+        (designing ? (
+          <InputField
+            id={`${id}-title`}
+            className="section-container__title"
+            type="text"
+            placeholder="Skriv inn seksjonstittel..."
+            value={title.text}
+            onChange={handleTitleChange}
+          />
+        ) : (
+          <p id={`${id}-title`} className="section-container__title">
+            {title.text}
+          </p>
+        ))}
+      {!ingress.isHidden &&
+        (designing ? (
+          <InputField
+            id={`${id}-ingress`}
+            className="section-container__ingress"
+            type="text"
+            placeholder="Skriv inn seksjonsingress..."
+            value={ingress.text}
+            onChange={handleIngressChange}
+          />
+        ) : (
+          <p id={`${id}-ingress`} className="section-container__ingress">
+            {ingress.text}
+          </p>
+        ))}
       {questions.map(questionId => (
-        <Question key={questionId} id={questionId} sectionId={id} editable={editable} />
+        <Question key={questionId} id={questionId} sectionId={id} designing={designing} />
       ))}
     </div>
   );
@@ -50,7 +60,7 @@ SectionContainer.propTypes = {
   sections: PropTypes.arrayOf(PropTypes.object).isRequired,
   setTitle: PropTypes.func.isRequired,
   setIngress: PropTypes.func.isRequired,
-  editable: PropTypes.bool.isRequired,
+  designing: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({

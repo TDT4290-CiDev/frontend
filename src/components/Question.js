@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import { getModule } from '../utils/modules';
 import { setQuestionTitle } from '../actions/questionActions';
 
-const Question = ({ id, questions, sectionId, editable, setTitle }) => {
+const Question = ({ id, questions, sectionId, designing, setTitle }) => {
   const questionObject = questions.find(question => question.id === id);
   const NewModule = getModule(questionObject.type);
   return (
     <NewModule
       key={questionObject.id}
       sectionId={sectionId}
-      editable={editable}
+      designing={designing}
       onTitleChange={setTitle}
       {...questionObject}
     />
@@ -23,7 +23,7 @@ Question.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.object).isRequired,
   sectionId: PropTypes.string.isRequired,
   setTitle: PropTypes.func.isRequired,
-  editable: PropTypes.bool.isRequired,
+  designing: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({

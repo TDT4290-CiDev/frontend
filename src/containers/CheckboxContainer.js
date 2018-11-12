@@ -5,7 +5,7 @@ import InputField from '../components/InputField';
 import Checkbox from '../components/Checkbox';
 import { toggleCheckbox } from '../actions/checkboxActions';
 
-const CheckboxContainer = ({ id, title, checked, onTitleChange, onToggle }) => {
+const CheckboxContainer = ({ id, title, checked, onTitleChange, onToggle, designing }) => {
   const handleToggle = () => {
     onToggle(id);
   };
@@ -14,16 +14,21 @@ const CheckboxContainer = ({ id, title, checked, onTitleChange, onToggle }) => {
     onTitleChange(id, e.target.value);
   };
 
-  return (
+  return designing ? (
     <div className="checkbox-container">
-      <Checkbox id={`${id}-checkbox`} checked={checked} onChange={handleToggle} />
+      <i className="material-icons">check_box</i>
       <InputField
         id={`${id}-title`}
         type="text"
         onChange={handleTitleChange}
         value={title}
-        placeholder="Checkbox tittel her..."
+        placeholder="Checkbox-tittel her..."
       />
+    </div>
+  ) : (
+    <div className="checkbox-container">
+      <Checkbox id={`${id}-checkbox`} checked={checked} onChange={handleToggle} />
+      <span id={`${id}-title`}>{title}</span>
     </div>
   );
 };
@@ -34,6 +39,7 @@ CheckboxContainer.propTypes = {
   checked: PropTypes.bool.isRequired,
   onTitleChange: PropTypes.func.isRequired,
   onToggle: PropTypes.func.isRequired,
+  designing: PropTypes.bool.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
