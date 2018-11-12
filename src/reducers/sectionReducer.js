@@ -1,8 +1,11 @@
+import { documentActionTypes } from '../actions/documentActions';
 import { sectionActionTypes } from '../actions/sectionActions';
 import { questionActionTypes } from '../actions/questionActions';
 
 export default (state = [], action) => {
   switch (action.type) {
+    case documentActionTypes.LOAD_FORM:
+      return action.form.sections;
     case sectionActionTypes.ADD_SECTION:
       return [...state.slice(0, action.index), action.section, ...state.slice(action.index)];
     case sectionActionTypes.SET_SECTION_TITLE:

@@ -2,7 +2,6 @@ import uuidv1 from 'uuid/v1';
 // When you have created a new from module, there are some things you have to do:
 
 // 1. Import your module container
-import TestComponent from '../components/TestComponent'; // Remove this later
 import BulletPointListContainer from '../containers/BulletPointListContainer';
 import RadioButtonListContainer from '../containers/RadioButtonListContainer';
 import CheckboxContainer from '../containers/CheckboxContainer';

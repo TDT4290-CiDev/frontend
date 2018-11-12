@@ -9,6 +9,9 @@ $dark-bg-color: #f5f5f5;
 
 .form-designer-container  {
   height: 100%;
+  &__save-button {
+    float: right;
+  }
 }
 
 @media screen {
