@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import InputField from '../components/InputField';
-import Checkbox from '../components/Checkbox';
-import { toggleCheckbox } from '../actions/checkboxActions';
+import InputField from '../../components/InputField';
+import Checkbox from '../../components/Checkbox';
+import { toggleCheckbox } from '../../actions/checkboxActions';
 
 const CheckboxContainer = ({ id, title, checked, onTitleChange, onToggle, designing }) => {
   const handleToggle = () => {

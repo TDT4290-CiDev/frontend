@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import GenericListContainer from './GenericListContainer';
-import { setCheckedItem } from '../actions/radioButtonActions';
+import GenericListContainer from '../GenericListContainer';
+import { setCheckedItem } from '../../actions/radioButtonActions';
 
 const RadioButtonListContainer = ({ id, checkedItem, setCheckedItem, ...remainingProps }) => {
   const handleCheckedItem = radioButtonId => {
