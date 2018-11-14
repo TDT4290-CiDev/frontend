@@ -5,6 +5,7 @@ import uuidv1 from 'uuid/v1';
 import InputField from '../components/InputField';
 import RadioButtonList from '../components/RadioButtonList';
 import BulletPointList from '../components/BulletPointList';
+import CheckboxList from '../components/CheckboxList';
 import { addListItem, removeListItem, moveListItem, setListItemText } from '../actions/listActions';
 import { removeQuestion } from '../actions/questionActions';
 import { setFocus } from '../actions/documentActions';
@@ -30,7 +31,7 @@ class GenericListContainer extends React.Component {
             }
           }
         } else if (index === listItems.length - 1 || listItems[index + 1].text !== '') {
-          this.addListItem(index + 1);
+          this.addListItem(index + 1, e.target.name);
         } else {
           this.setActiveField(listItems[index + 1].id);
         }
@@ -66,11 +67,11 @@ class GenericListContainer extends React.Component {
     setTimeout(() => setActiveField(id), 10);
   };
 
-  // index is the index for the new bullet point
-  addListItem = index => {
+  // index is the index for the new list element
+  addListItem = (index, type) => {
     const { id, addNewListItem } = this.props;
     const newListItemId = uuidv1();
-    addNewListItem(id, newListItemId, index);
+    addNewListItem(id, newListItemId, index, type);
     this.setActiveField(newListItemId);
   };
 
@@ -146,6 +147,17 @@ class GenericListContainer extends React.Component {
             {...remainingProps}
           />
         )}
+        {type === 'checkboxList' && (
+          <CheckboxList
+            checkboxes={listItems}
+            onCheckboxTextChange={this.handleListItemTextChange}
+            onCheckboxKeyPress={this.handleListItemKeyPress}
+            onSortEnd={this.handleSortEnd}
+            useDragHandle
+            designing={designing}
+            {...remainingProps}
+          />
+        )}
       </div>
     );
   }
@@ -168,7 +180,7 @@ GenericListContainer.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addNewListItem: (questionId, listItemId, index) => dispatch(addListItem(questionId, listItemId, index)),
+  addNewListItem: (questionId, listItemId, index, type) => dispatch(addListItem(questionId, listItemId, index, type)),
   removeListItem: (questionId, listItemId) => dispatch(removeListItem(questionId, listItemId)),
   moveListItem: (questionId, oldIndex, newIndex) => dispatch(moveListItem(questionId, oldIndex, newIndex)),
   setListItemValue: (questionId, listItemId, value) => dispatch(setListItemText(questionId, listItemId, value)),

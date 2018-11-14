@@ -5,6 +5,7 @@ import uuidv1 from 'uuid/v1';
 import {
   BulletPointListContainer,
   RadioButtonListContainer,
+  CheckboxListContainer,
   CheckboxContainer,
   LongAnswerContainer,
   ShortAnswerContainer,
@@ -17,6 +18,7 @@ const availableModules = {
   langsvar: LongAnswerContainer,
   punktliste: BulletPointListContainer,
   radiobutton: RadioButtonListContainer,
+  checkboxliste: CheckboxListContainer,
 };
 
 // 3. Add a description to the container
@@ -26,6 +28,7 @@ const commandTranslation = {
   __: 'langsvar',
   '*': 'punktliste',
   '()': 'radiobutton',
+  '[[]]': 'checkboxliste',
 };
 
 // 4. Add unique state attributes to new modules of that type, if any
@@ -37,6 +40,8 @@ const uniqueStateAttributes = (shortcut, newId) => {
       return { listItems: [{ id: newId, text: '' }] };
     case '()':
       return { listItems: [{ id: newId, text: '' }], checkedItem: '' };
+    case '[[]]':
+      return { listItems: [{ id: newId, text: '', checked: false }] };
     default:
       return {};
   }

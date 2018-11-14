@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import GenericListContainer from '../GenericListContainer';
 import { setCheckedItem } from '../../actions/radioButtonActions';
 
-const RadioButtonListContainer = ({ id, checkedItem, setCheckedItem, ...remainingProps }) => {
+const RadioButtonListContainer = ({ id, checkedItem, onCheckedItem, ...remainingProps }) => {
   const handleCheckedItem = radioButtonId => {
-    setCheckedItem(radioButtonId, id);
+    onCheckedItem(radioButtonId, id);
   };
 
   return (
@@ -30,10 +30,11 @@ RadioButtonListContainer.propTypes = {
   checkedItem: PropTypes.string.isRequired,
   designing: PropTypes.bool.isRequired,
   onTitleChange: PropTypes.func.isRequired,
+  onCheckedItem: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
-  setCheckedItem: (id, questionId) => dispatch(setCheckedItem(id, questionId)),
+  onCheckedItem: (id, questionId) => dispatch(setCheckedItem(id, questionId)),
 });
 
 export default connect(
