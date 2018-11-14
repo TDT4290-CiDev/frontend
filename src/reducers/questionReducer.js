@@ -96,6 +96,24 @@ export default (state = [], action) => {
         }
         return question;
       });
+    case checkboxActionTypes.TOGGLE_CHECKBOX_ELEMENT:
+      return state.map(question => {
+        if (question.id === action.questionId) {
+          return {
+            ...question,
+            listItems: question.listItems.map(listItem => {
+              if (listItem.id === action.id) {
+                return {
+                  ...listItem,
+                  checked: !listItem.checked,
+                };
+              }
+              return listItem;
+            }),
+          };
+        }
+        return question;
+      });
     case textInputActionTypes.SET_INPUT_VALUE:
       return state.map(question => {
         if (question.id === action.id) {

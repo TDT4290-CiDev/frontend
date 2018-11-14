@@ -16,7 +16,14 @@ const BulletPoint = SortableElement(({ id, listIndex, text, onChange, onKeyPress
   return designing ? (
     <li className="bullet-point">
       <DragHandle />
-      <InputField id={id} type="text" onChange={handleTextChange} onKeyDown={handleKeyPress} value={text} />
+      <InputField
+        id={id}
+        name="bulletpoint"
+        type="text"
+        onChange={handleTextChange}
+        onKeyDown={handleKeyPress}
+        value={text}
+      />
     </li>
   ) : (
     <li className="bullet-point">

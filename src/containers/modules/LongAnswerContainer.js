@@ -26,7 +26,7 @@ const LongAnswerContainer = ({ id, title, inputValue, designing, onTitleChange, 
       />
       <textarea
         id={`${id}-input`}
-        placeholder="Langsvar"
+        placeholder={title}
         type="text"
         className="long-answer-container__input"
         onChange={handleInputChange}

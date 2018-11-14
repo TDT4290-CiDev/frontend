@@ -10,12 +10,19 @@ const newListItem = id => ({
   text: '',
 });
 
-export const addListItem = (questionId, listItemId, index) => dispatch => {
+const newCheckboxElement = id => ({
+  id,
+  text: '',
+  checked: false,
+});
+
+export const addListItem = (questionId, listItemId, index, type) => dispatch => {
+  const listItemObject = type === 'checkbox' ? newCheckboxElement(listItemId) : newListItem(listItemId);
   dispatch({
     type: listActionTypes.ADD_LIST_ITEM,
     questionId,
     index,
-    listItem: newListItem(listItemId),
+    listItem: listItemObject,
   });
   return listItemId;
 };
