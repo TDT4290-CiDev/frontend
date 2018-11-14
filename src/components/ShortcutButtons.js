@@ -2,13 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class ShortcutButtons extends React.Component {
-  state = { check: false };
+  state = { expanded: false };
+
+  collapse = () => {
+    this.setState({ expanded: false });
+  };
+
+  toggleExpanded = () => {
+    const { expanded } = this.state;
+    this.setState({ expanded: !expanded });
+  };
 
   render() {
-    const { check } = this.state;
+    const { expanded } = this.state;
     const { onClick } = this.props;
     return (
-      <div className="shortcut-buttons">
+      <div className="shortcut-buttons" onBlur={this.collapse}>
         <button type="button" onClick={() => onClick('_')}>
           Kortsvar
         </button>
@@ -18,18 +27,11 @@ class ShortcutButtons extends React.Component {
         <button type="button" onClick={() => onClick('[]')}>
           Checkboxlist
         </button>
-        <button
-          type="button"
-          onClick={() =>
-            this.setState(prevState => ({
-              check: !prevState.check,
-            }))
-          }
-        >
+        <button type="button" onClick={this.toggleExpanded}>
           Flere knapper
         </button>
-        <div className="expandable-shortcut-buttons">
-          {check && (
+        <div className="shortcut-buttons__expandable">
+          {expanded && (
             <div>
               <button type="button" onClick={() => onClick('__')}>
                 Langsvar
