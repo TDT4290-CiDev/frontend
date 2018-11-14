@@ -1,15 +1,45 @@
+$title-font: 'Montserrat', sans-serif;
+$text-font: 'Spectral', serif;
+$text-color: #3e3e3e;
+$border-color: #979797;
+$background-color: #fbfbfb;
+$blue: #3a94fd;
+$placeholder-color: #a9a9a9;
+$dark-bg-color: #f5f5f5;
+
 .form-landing-page {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   height: 100vh;
+
+  h1 {
+    font-size: 64px;
+    color: $blue;
+    font-family: $title-font;
+  }
+
+  h2 {
+    font-size: 48px;
+    color: $border-color;
+    font-family: $title-font;
+  }
+
   &__link {
     display: block;
-    height: 200px;
-    width: 50%;
+    width: 30%;
+    min-width: 500px;
     background-color: white;
-    margin-bottom: 10px;
+    margin: 20px;
+    font-size: 32px;
+    font-family: $title-font;
     text-align: center;
+    padding: 50px;
+    box-shadow: 0 0 10px $placeholder-color;
+
+    &:first-of-type {
+      margin-bottom: 0;
+    }
   }
 }
