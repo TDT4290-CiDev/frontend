@@ -19,22 +19,22 @@ class ShortcutButtons extends React.Component {
     return (
       <div className="shortcut-buttons" onBlur={this.collapse}>
         <button type="button" onClick={() => onClick('_')}>
-          Kortsvar
+          <i className="material-icons">short_text</i>
         </button>
         <button type="button" onClick={() => onClick('*')}>
-          Radiobutton
+          <i className="material-icons">radio_button_checked</i>
         </button>
         <button type="button" onClick={() => onClick('[]')}>
-          Checkboxlist
+          <i className="material-icons">check_box</i>
         </button>
         <button type="button" onClick={this.toggleExpanded}>
-          Flere knapper
+          <i className="material-icons">more_vert</i>
         </button>
         <div className="shortcut-buttons__expandable">
           {expanded && (
             <div>
               <button type="button" onClick={() => onClick('__')}>
-                Langsvar
+                <i className="material-icons">notes</i>
               </button>
             </div>
           )}
