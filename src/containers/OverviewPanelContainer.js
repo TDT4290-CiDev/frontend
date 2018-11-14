@@ -28,10 +28,14 @@ class OverviewPanelContainer extends React.Component {
     const overviewData = sections.map(section => ({
       id: section.id,
       title: section.title.text,
-      isHidde: section.title.isHidden,
+      isHidden: section.title.isHidden,
       questions: questions.map(question => {
         if (section.questions.includes(question.id)) {
-          return { id: question.id, title: question.title };
+          // Necessary to keep question as active in the overview panel when activeField is one of its children
+          if ('listItems' in question) {
+            return { ids: [question.id, ...question.listItems.map(({ id }) => id)], title: question.title };
+          }
+          return { ids: [question.id], title: question.title };
         }
         return null;
       }),
