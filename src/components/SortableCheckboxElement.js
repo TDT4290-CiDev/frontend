@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { SortableElement } from 'react-sortable-hoc';
 import DragHandle from './DragHandle';
 import InputField from './InputField';
+import Checkbox from './Checkbox';
 
-const RadioButton = SortableElement(
+const SortableCheckboxElement = SortableElement(
   ({ id, listIndex, text, onTextChange, onChecked, checked, onKeyPress, designing }) => {
     const handleTextChange = e => {
       onTextChange(id, e.target.value);
@@ -14,17 +15,17 @@ const RadioButton = SortableElement(
       onKeyPress(e, id, listIndex);
     };
 
-    const handleChecked = () => {
+    const handleToggle = () => {
       onChecked(id);
     };
 
     return designing ? (
-      <div className="radio-button">
-        <i className="material-icons">radio_button_checked</i>
+      <div className="checkbox-container">
+        <i className="material-icons">check_box</i>
         <DragHandle />
         <InputField
           id={id}
-          name="radiobutton"
+          name="checkbox"
           type="text"
           onChange={handleTextChange}
           onKeyDown={handleKeyPress}
@@ -32,23 +33,15 @@ const RadioButton = SortableElement(
         />
       </div>
     ) : (
-      <div className="radio-button">
-        <InputField
-          id={`${id}-radio`}
-          type="radio"
-          value={text}
-          checked={checked}
-          onChange={handleChecked}
-          disableOnFocus
-          disableAutoFocus
-        />
-        <p id={id}>{text}</p>
+      <div className="checkbox-container">
+        <Checkbox id={`${id}-checkbox`} checked={checked} onChange={handleToggle} />
+        <span id={id}>{text}</span>
       </div>
     );
   }
 );
 
-RadioButton.propTypes = {
+SortableCheckboxElement.propTypes = {
   id: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   onTextChange: PropTypes.func.isRequired,
@@ -58,4 +51,4 @@ RadioButton.propTypes = {
   designing: PropTypes.bool.isRequired,
 };
 
-export default RadioButton;
+export default SortableCheckboxElement;
