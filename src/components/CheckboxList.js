@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { SortableContainer } from 'react-sortable-hoc';
-import SortableCheckboxElement from './SortableCheckboxElement';
+import Checkbox from './Checkbox';
 
 const CheckboxList = SortableContainer(
   ({ checkboxes, onCheckboxTextChange, onCheckboxKeyPress, onCheckedItemChange, designing }) => (
     <div>
       {checkboxes.map((checkbox, index) => (
-        <SortableCheckboxElement
+        <Checkbox
           key={checkbox.id}
           id={checkbox.id}
           index={index}

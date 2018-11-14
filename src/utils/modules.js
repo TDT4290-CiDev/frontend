@@ -3,45 +3,35 @@ import uuidv1 from 'uuid/v1';
 
 // 1. Export your module container in src/containers/modules/index.js and import it here
 import {
-  BulletPointListContainer,
   RadioButtonListContainer,
   CheckboxListContainer,
-  CheckboxContainer,
   LongAnswerContainer,
   ShortAnswerContainer,
 } from '../containers/modules';
 
 // 2. Create a shortcut to the container
 const availableModules = {
-  checkbox: CheckboxContainer,
   kortsvar: ShortAnswerContainer,
   langsvar: LongAnswerContainer,
-  punktliste: BulletPointListContainer,
-  radiobutton: RadioButtonListContainer,
+  punktliste: RadioButtonListContainer,
   checkboxliste: CheckboxListContainer,
 };
 
 // 3. Add a description to the container
 const commandTranslation = {
-  '[]': 'checkbox',
   _: 'kortsvar',
   __: 'langsvar',
   '*': 'punktliste',
-  '()': 'radiobutton',
-  '[[]]': 'checkboxliste',
+  '[]': 'checkboxliste',
 };
 
 // 4. Add unique state attributes to new modules of that type, if any
 const uniqueStateAttributes = (shortcut, newId) => {
   switch (shortcut) {
     case '[]':
-      return { checked: false };
-    case '*':
-      return { listItems: [{ id: newId, text: '' }] };
-    case '()':
-      return { listItems: [{ id: newId, text: '' }], checkedItem: '' };
-    case '[[]]':
       return { listItems: [{ id: newId, text: '', checked: false }] };
+    case '*':
+      return { listItems: [{ id: newId, text: '' }], checkedItem: '' };
     case '_':
     case '__':
       return { inputValue: '' };

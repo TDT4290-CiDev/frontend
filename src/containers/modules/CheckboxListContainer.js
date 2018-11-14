@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import GenericListContainer from '../GenericListContainer';
-import { toggleCheckboxElement } from '../../actions/checkboxActions';
+import { toggleCheckbox } from '../../actions/checkboxActions';
 
 const CheckboxListContainer = ({ id, onToggle, ...remainingProps }) => {
   const handleCheck = checkboxId => {
@@ -27,7 +27,7 @@ CheckboxListContainer.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  onToggle: (id, questionId) => dispatch(toggleCheckboxElement(id, questionId)),
+  onToggle: (id, questionId) => dispatch(toggleCheckbox(id, questionId)),
 });
 
 export default connect(

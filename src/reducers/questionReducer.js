@@ -88,16 +88,6 @@ export default (state = [], action) => {
       });
     case checkboxActionTypes.TOGGLE_CHECKBOX:
       return state.map(question => {
-        if (question.id === action.id) {
-          return {
-            ...question,
-            checked: !question.checked,
-          };
-        }
-        return question;
-      });
-    case checkboxActionTypes.TOGGLE_CHECKBOX_ELEMENT:
-      return state.map(question => {
         if (question.id === action.questionId) {
           return {
             ...question,
