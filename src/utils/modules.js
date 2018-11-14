@@ -1,12 +1,14 @@
 import uuidv1 from 'uuid/v1';
 // When you have created a new from module, there are some things you have to do:
 
-// 1. Import your module container
-import BulletPointListContainer from '../containers/BulletPointListContainer';
-import RadioButtonListContainer from '../containers/RadioButtonListContainer';
-import CheckboxContainer from '../containers/CheckboxContainer';
-import LongAnswerContainer from '../containers/LongAnswerContainer';
-import ShortAnswerContainer from '../containers/ShortAnswerContainer';
+// 1. Export your module container in src/containers/modules/index.js and import it here
+import {
+  BulletPointListContainer,
+  RadioButtonListContainer,
+  CheckboxContainer,
+  LongAnswerContainer,
+  ShortAnswerContainer,
+} from '../containers/modules';
 
 // 2. Create a shortcut to the container
 const availableModules = {

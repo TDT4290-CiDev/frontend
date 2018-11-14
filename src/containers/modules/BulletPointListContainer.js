@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import GenericListContainer from './GenericListContainer';
+import GenericListContainer from '../GenericListContainer';
 
 const BulletPointListContainer = props => (
   <div className="bullet-list-container">

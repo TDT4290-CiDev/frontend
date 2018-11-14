@@ -1,38 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import InputField from '../components/InputField';
+import InputField from '../../components/InputField';
 
-const ShortAnswerContainer = ({ id, title, designing, onTitleChange }) => {
+const LongAnswerContainer = ({ id, title, designing, onTitleChange }) => {
   const handleTitleChange = e => {
     onTitleChange(id, e.target.value);
   };
-
   return (
-    <div className="short-answer-container">
+    <div className="long-answer-container">
       <InputField
         id={id}
         type="text"
-        className="short-answer-container__label"
+        className="long-answer-container__label"
         onChange={handleTitleChange}
         value={title}
-        placeholder="Kortsvar..."
+        placeholder="Langsvar..."
         disabled={!designing}
       />
-      <InputField
+      <textarea
         id={`${id}-input`}
+        placeholder="Langsvar"
         type="text"
-        className="short-answer-container__input"
-        placeholder={title}
+        className="long-answer-container__input"
         disabled={designing}
       />
     </div>
   );
 };
-
-ShortAnswerContainer.propTypes = {
+LongAnswerContainer.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   designing: PropTypes.bool.isRequired,
   onTitleChange: PropTypes.func.isRequired,
 };
-export default ShortAnswerContainer;
+export default LongAnswerContainer;
