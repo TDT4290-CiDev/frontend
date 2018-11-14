@@ -21,7 +21,7 @@ const SortableCheckboxElement = SortableElement(
 
     return designing ? (
       <div className="checkbox-container">
-        <i className="material-icons">check_box</i>
+        <i className="material-icons list-checkbox">check_box</i>
         <DragHandle />
         <InputField
           id={id}
