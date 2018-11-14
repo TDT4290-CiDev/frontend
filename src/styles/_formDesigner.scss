@@ -290,5 +290,47 @@ $dark-bg-color: #f5f5f5;
         }
       }
     }
+    .command-input {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      #commandInput {
+        flex-grow: 3;
+        width: auto;
+      }
+
+      .expandable-shortcut-buttons {
+        position: absolute;
+        width: 168px;
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
+        flex-wrap: wrap;
+        box-shadow: 0 0 5px $border-color;
+        margin-left: -10px;
+        margin-top: 10px;
+
+        &.open {
+          padding: 10px;
+        }
+      }
+
+      button {
+        background: none;
+        border: none;
+        height: 37px;
+        width: 37px;
+        text-align: center;
+        padding: 5px;
+        cursor: pointer;
+
+        &:hover {
+          i {
+            color: $text-color;
+          }
+        }
+      }
+    }
   }
 }
