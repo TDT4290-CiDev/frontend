@@ -7,6 +7,8 @@
 
 ## Development Server
 - `yarn start` will run the app's development server at [http://localhost:3000](http://localhost:3000) with hot module reloading.
+- See the [docker-compose repo](https://github.com/TDT4290-CiDev/docker-compose) to spin up the api-gateway.
+- Because of [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS), you will have to use a browser extension to connect to the api-gateway in development. In Chrome, you can use [Allow-Control-Allow-Origin: *](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi). Make sure to turn off the extension when not using it, or else you will have some trouble when visiting other websites!
 
 ## Running Tests
 - `yarn test` will run the tests once.
@@ -22,6 +24,9 @@
 
 - `yarn run clean` will delete built resources.
 
+## Production
+This code is optimized to run in production together with all the other microservices. To run it all together, take a look at our [docker-compose repo](https://github.com/TDT4290-CiDev/docker-compose).
+
 ## Before coding
 Before you start coding, you must set up automatic linter and prettier in your editor. For atom you do the following:
 
@@ -32,6 +37,11 @@ For other editors, google it...
 
 ## Create new modules
 ### Form
-To create new modules to the form designer, you do the following: 
-1. Add the new files to their appropriate folder (components, containers etc.)
-2. Import your main component into src/utils/modules.js, create a shortcut and a shortcut description. (It's also explained in the modules.js file)
+To create new modules to the form designer, you do the following (the process is also explained in the src/utils/modules.js file): 
+1. Add the new files to their appropriate folder (components, containers etc.) Make sure that your main container is placed in src/containers/modules.
+2. Export your module container in src/containers/modules/index.
+3. Import your main component into src/utils/modules.js.
+4. Create a shortcut and a shortcut description in the same file as above. 
+5. Add functionality to store the required fields in the global [Redux](https://redux.js.org/) state to make the form able to save this new module to the database.
+
+When creating new modules, make sure to reuse as much code as possible. There are made some generic components that should be used if possible.
