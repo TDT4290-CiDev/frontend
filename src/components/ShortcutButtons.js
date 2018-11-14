@@ -12,11 +12,11 @@ class ShortcutButtons extends React.Component {
         <button type="button" onClick={() => onClick('_')}>
           Kortsvar
         </button>
-        <button type="button" onClick={() => onClick('()')}>
+        <button type="button" onClick={() => onClick('*')}>
           Radiobutton
         </button>
         <button type="button" onClick={() => onClick('[]')}>
-          Checkbox
+          Checkboxlist
         </button>
         <button
           type="button"
@@ -33,9 +33,6 @@ class ShortcutButtons extends React.Component {
             <div>
               <button type="button" onClick={() => onClick('__')}>
                 Langsvar
-              </button>
-              <button type="button" onClick={() => onClick('*')}>
-                Punktliste
               </button>
             </div>
           )}
