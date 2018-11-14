@@ -18,22 +18,22 @@ class ShortcutButtons extends React.Component {
     const { onClick } = this.props;
     return (
       <div className="shortcut-buttons" onBlur={this.collapse}>
-        <button type="button" onClick={() => onClick('_')}>
+        <button title="Kortsvar&#013;Markup-kode: _" type="button" onClick={() => onClick('_')}>
           <i className="material-icons">short_text</i>
         </button>
-        <button type="button" onClick={() => onClick('*')}>
+        <button title="Radioknapp&#013;Markup-kode: *" type="button" onClick={() => onClick('*')}>
           <i className="material-icons">radio_button_checked</i>
         </button>
-        <button type="button" onClick={() => onClick('[]')}>
+        <button title="Avmerkingsboks&#013;Markup-kode: []" type="button" onClick={() => onClick('[]')}>
           <i className="material-icons">check_box</i>
         </button>
-        <button type="button" onClick={this.toggleExpanded}>
+        <button title="Flere typer" type="button" onClick={this.toggleExpanded}>
           <i className="material-icons">more_vert</i>
         </button>
-        <div className="shortcut-buttons__expandable">
+        <div className={`shortcut-buttons__expandable ${expanded ? 'open' : ''}`}>
           {expanded && (
             <div>
-              <button type="button" onClick={() => onClick('__')}>
+              <button title="Langsvar&#013;Markup-kode: __" type="button" onClick={() => onClick('__')}>
                 <i className="material-icons">notes</i>
               </button>
             </div>
