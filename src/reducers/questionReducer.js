@@ -4,6 +4,7 @@ import { questionActionTypes } from '../actions/questionActions';
 import { listActionTypes } from '../actions/listActions';
 import { radioButtonListActionTypes } from '../actions/radioButtonActions';
 import { checkboxActionTypes } from '../actions/checkboxActions';
+import { textInputActionTypes } from '../actions/textInputActions';
 
 export default (state = [], action) => {
   switch (action.type) {
@@ -91,6 +92,16 @@ export default (state = [], action) => {
           return {
             ...question,
             checked: !question.checked,
+          };
+        }
+        return question;
+      });
+    case textInputActionTypes.SET_INPUT_VALUE:
+      return state.map(question => {
+        if (question.id === action.id) {
+          return {
+            ...question,
+            inputValue: action.value,
           };
         }
         return question;

@@ -1,11 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import InputField from '../../components/InputField';
+import { setInputValue } from '../../actions/textInputActions';
 
-const LongAnswerContainer = ({ id, title, designing, onTitleChange }) => {
+const LongAnswerContainer = ({ id, title, inputValue, designing, onTitleChange, onInputChange }) => {
   const handleTitleChange = e => {
     onTitleChange(id, e.target.value);
   };
+
+  const handleInputChange = e => {
+    onInputChange(id, e.target.value);
+  };
+
   return (
     <div className="long-answer-container">
       <InputField
@@ -22,6 +29,8 @@ const LongAnswerContainer = ({ id, title, designing, onTitleChange }) => {
         placeholder="Langsvar"
         type="text"
         className="long-answer-container__input"
+        onChange={handleInputChange}
+        value={inputValue}
         disabled={designing}
       />
     </div>
@@ -30,7 +39,17 @@ const LongAnswerContainer = ({ id, title, designing, onTitleChange }) => {
 LongAnswerContainer.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  inputValue: PropTypes.string.isRequired,
   designing: PropTypes.bool.isRequired,
   onTitleChange: PropTypes.func.isRequired,
+  onInputChange: PropTypes.func.isRequired,
 };
-export default LongAnswerContainer;
+
+const mapDispatchToProps = dispatch => ({
+  onInputChange: (questionId, value) => dispatch(setInputValue(questionId, value)),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(LongAnswerContainer);

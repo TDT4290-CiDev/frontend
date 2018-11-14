@@ -37,6 +37,9 @@ const uniqueStateAttributes = (shortcut, newId) => {
       return { listItems: [{ id: newId, text: '' }] };
     case '()':
       return { listItems: [{ id: newId, text: '' }], checkedItem: '' };
+    case '_':
+    case '__':
+      return { inputValue: '' };
     default:
       return {};
   }
