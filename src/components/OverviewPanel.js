@@ -32,12 +32,12 @@ const OverviewPanel = ({ document, sectionData, open, onClick, activeField, onMo
             )}
           </React.Fragment>
         )}
-        {section.questions.map(({ id, title }) => (
-          <React.Fragment key={id}>
+        {section.questions.map(({ ids, title }) => (
+          <React.Fragment key={ids[0]}>
             {title !== '' && (
-              <div className={`overview-panel__question ${activeField === id ? 'active' : ''}`}>
+              <div className={`overview-panel__question ${ids.includes(activeField) ? 'active' : ''}`}>
                 {open ? (
-                  <button type="button" onClick={() => onClick(id)} disabled={activeField === id}>
+                  <button type="button" onClick={() => onClick(ids[0])} disabled={ids.includes(activeField)}>
                     {title}
                   </button>
                 ) : (
