@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import InputField from '../components/InputField';
+import ShortcutButtons from '../components/ShortcutButtons';
 import { setFocus } from '../actions/documentActions';
 import { addSection } from '../actions/sectionActions';
 import { addQuestion } from '../actions/questionActions';
@@ -16,26 +17,34 @@ class CommandInputFieldContainer extends React.Component {
     this.setState({ inputText: e.target.value });
   };
 
+  handleShortcutButtonClick = command => {
+    this.createNewQuestion(command);
+  };
+
+  createNewQuestion = command => {
+    const { addNewSection, addNewQuestion, sections, setActiveField } = this.props;
+    try {
+      const sectionId = sections[sections.length - 1].id;
+      const index = sections[sections.length - 1].questions.length;
+      const questionId = addNewQuestion(
+        sectionId,
+        index,
+        getCommandTranslation(command),
+        getUniqueStateAttributes(command)
+      );
+      setActiveField(questionId);
+    } catch (error) {
+      const sectionId = addNewSection(0);
+      addNewQuestion(sectionId, 0, getCommandTranslation(command), getUniqueStateAttributes(command));
+      setActiveField(`${sectionId}-title`);
+    }
+  };
+
   handleKeyPress = e => {
     const { inputText } = this.state;
-    const { addNewSection, addNewQuestion, sections, setActiveField } = this.props;
     if (['Enter', 'Spacebar', ' '].includes(e.key)) {
       if (isValidCommand(inputText)) {
-        try {
-          const sectionId = sections[sections.length - 1].id;
-          const index = sections[sections.length - 1].questions.length;
-          const questionId = addNewQuestion(
-            sectionId,
-            index,
-            getCommandTranslation(inputText),
-            getUniqueStateAttributes(inputText)
-          );
-          setActiveField(questionId);
-        } catch (error) {
-          const sectionId = addNewSection(0);
-          addNewQuestion(sectionId, 0, getCommandTranslation(inputText), getUniqueStateAttributes(inputText));
-          setActiveField(`${sectionId}-title`);
-        }
+        this.createNewQuestion(inputText);
         this.setState({ inputText: '' });
       } else if (inputText !== '') {
         // TODO: Show an error message to user
@@ -56,6 +65,7 @@ class CommandInputFieldContainer extends React.Component {
           onKeyPress={this.handleKeyPress}
           placeholder={validCommandsString}
         />
+        {inputText === '' && <ShortcutButtons onClick={this.handleShortcutButtonClick} />}
       </div>
     );
   }

@@ -28,7 +28,7 @@ class OverviewPanelContainer extends React.Component {
     const overviewData = sections.map(section => ({
       id: section.id,
       title: section.title.text,
-      isHidde: section.title.isHidden,
+      isHidden: section.title.isHidden,
       questions: questions.map(question => {
         if (section.questions.includes(question.id)) {
           return { id: question.id, title: question.title };

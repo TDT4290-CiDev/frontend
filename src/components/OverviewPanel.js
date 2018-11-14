@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 
 const OverviewPanel = ({ document, sectionData, open, onClick, activeField, onMouseEnter, onMouseLeave }) => (
   <div className={`overview-panel ${open ? 'open' : ''}`} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-    {open ? (
-      <button type="button" onClick={() => onClick(document.id)} disabled={activeField === document.id}>
-        {document.title !== '' ? document.title : 'Skriv inn dokumenttittel'}
-      </button>
-    ) : (
-      <p>--------------------</p>
-    )}
+    <div className={`overview-panel__document-title ${activeField === document.id ? 'active' : ''}`}>
+      {open ? (
+        <button type="button" onClick={() => onClick(document.id)} disabled={activeField === document.id}>
+          {document.title !== '' ? document.title : 'Skriv inn dokumenttittel'}
+        </button>
+      ) : (
+        <p>--------------------</p>
+      )}
+    </div>
     {sectionData.map((section, index) => (
       <div
         key={section.id}
