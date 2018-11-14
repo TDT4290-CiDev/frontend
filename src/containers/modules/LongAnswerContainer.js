@@ -13,13 +13,6 @@ const LongAnswerContainer = ({ id, sectionId, title, designing, onTitleChange, r
   const handleKeyPress = e => {
     const inputValue = e.target.value;
     switch (e.key) {
-      case 'Enter':
-        if (inputValue.trim() === '') {
-          removeQuestion(id, sectionId);
-        } else {
-          setActiveField('commandInput');
-        }
-        break;
       case 'Backspace':
         if (inputValue.trim() === '') {
           removeQuestion(id, sectionId);
