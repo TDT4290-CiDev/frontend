@@ -21,7 +21,7 @@ class GenericListContainer extends React.Component {
     const { id, sectionId, listItems, removeList } = this.props;
     switch (e.key) {
       case 'Enter':
-        if (inputValue === '') {
+        if (inputValue.trim() === '') {
           if (listItems.length > 1) {
             this.removeListItem(listItemId);
             if (index === listItems.length - 1) {
@@ -40,6 +40,7 @@ class GenericListContainer extends React.Component {
         if (inputValue === '') {
           if (listItems.length === 1) {
             removeList(id, sectionId);
+            this.setActiveField('commandInput');
           } else {
             this.removeListItem(listItemId);
             this.setActiveField(index !== 0 ? listItems[index - 1].id : id);
@@ -47,10 +48,6 @@ class GenericListContainer extends React.Component {
         }
         break;
       default:
-        // Add last character of inputValue to bullet point text if e is an repeating event because onKeyDown does not do it by itself
-        if (e.repeat) {
-          this.handleListItemTextChange(listItemId, inputValue + inputValue.charAt(inputValue.length - 1));
-        }
         break;
     }
   };
