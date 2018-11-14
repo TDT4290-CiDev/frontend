@@ -53,7 +53,7 @@ class FormDesignerContainer extends React.Component {
         <OverviewPanelContainer />
         <DocumentContainer designing />
         <button type="button" className="form-designer-container__save-button" onClick={this.saveForm}>
-          Lagre
+          <i className="material-icons">save</i>
         </button>
       </div>
     );
