@@ -35,7 +35,8 @@ class FormListContainer extends React.Component {
           <FormList forms={forms} />
         ) : (
           <h2>
-            Det er ikke laget noen forms enda. Du kan lage et nytt <Link to="/new-form">her</Link>
+            Det er ikke laget noen forms enda. Du kan lage et nytt
+            <Link to="/new-form">her</Link>
           </h2>
         )}
       </div>
