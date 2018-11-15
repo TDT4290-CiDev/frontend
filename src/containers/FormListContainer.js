@@ -24,20 +24,27 @@ class FormListContainer extends React.Component {
     const { forms, loadingData, apiError } = this.state;
 
     // TODO: Add error page
-    if (apiError) return <h1>Det har skjedd en feil her..</h1>;
+    if (apiError)
+      return (
+        <div className="existing-forms-container">
+          <h1>Får ikke kontakt med serveren &#9785;</h1>
+        </div>
+      );
 
     // TODO: Add loader when loadingData===true
     if (loadingData) return false;
 
     return (
       <div className="existing-forms-container">
+        <h1>Cidev</h1>
+        <h2>Eksisterende skjemaer</h2>
         {forms.length !== 0 ? (
           <FormList forms={forms} />
         ) : (
-          <h2>
-            Det er ikke laget noen forms enda. Du kan lage et nytt
-            <Link to="/new-form">her</Link>
-          </h2>
+          <h3 className="no-forms">
+            Det er ikke laget noen forms enda. Du kan lage et nytt&nbsp;
+            <Link to="/new-form">her</Link>.
+          </h3>
         )}
       </div>
     );

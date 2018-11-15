@@ -7,6 +7,8 @@ class FormLandingPage extends React.Component {
   render() {
     return (
       <div className="form-landing-page">
+        <h1>Cidev</h1>
+        <h2>Skjemadesigner</h2>
         <Link className="form-landing-page__link" to="/new-form">
           Nytt skjema
         </Link>
