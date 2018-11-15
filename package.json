@@ -7,9 +7,7 @@
     "build": "nwb build-react-app",
     "clean": "nwb clean-app",
     "start": "nwb serve-react-app --hot",
-    "test": "nwb test-react",
-    "test:coverage": "nwb test-react --coverage",
-    "test:watch": "nwb test-react --server",
+    "test": "ava",
     "pretty": "prettier --write \"**/*.{js,json,scss,md}\""
   },
   "dependencies": {
@@ -32,6 +30,7 @@
     "@babel/core": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
     "@namics/stylelint-bem": "^5.1.1",
+    "ava": "1.0.0-rc.2",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "eslint": "^5.9.0",
