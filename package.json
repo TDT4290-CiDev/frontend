@@ -7,7 +7,7 @@
     "build": "nwb build-react-app",
     "clean": "nwb clean-app",
     "start": "nwb serve-react-app --hot",
-    "test": "ava",
+    "test": "nyc ava",
     "pretty": "prettier --write \"**/*.{js,json,scss,md}\""
   },
   "dependencies": {
@@ -45,6 +45,7 @@
     "husky": "^1.1.4",
     "lint-staged": "^8.0.4",
     "nwb": "0.23.x",
+    "nyc": "13.1.0",
     "prettier": "1.15.2",
     "redux-immutable-state-invariant": "^2.1.0",
     "redux-logger": "^3.0.6",
@@ -69,6 +70,11 @@
       ]
     },
     "concurrent": false
+  },
+  "nyc": {
+    "extension": [
+      ".jsx"
+    ]
   },
   "author": "Eivind Reime",
   "license": "MIT",
