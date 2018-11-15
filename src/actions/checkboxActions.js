@@ -4,7 +4,7 @@ export const checkboxActionTypes = {
 
 export const toggleCheckbox = (id, questionId) => dispatch => {
   dispatch({
-    type: checkboxActionTypes.TOGGLE_CHECKBOX_ELEMENT,
+    type: checkboxActionTypes.TOGGLE_CHECKBOX,
     id,
     questionId,
   });
