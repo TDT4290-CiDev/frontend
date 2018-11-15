@@ -9,6 +9,7 @@ import { post, put } from '../utils/api';
 class FormDesignerContainer extends React.Component {
   state = {
     isLoadingForm: true,
+    isSaving: false,
   };
 
   async componentDidMount() {
@@ -24,26 +25,35 @@ class FormDesignerContainer extends React.Component {
     clearState();
   }
 
-  saveForm = () => {
-    const { form } = this.props;
+  saveForm = async () => {
+    const { form, history } = this.props;
     const { id, existingForm } = form.document;
-    delete form.document.id;
-    delete form.document.activeField;
-    delete form.document.existingForm;
+
+    this.setState({ isSaving: true });
+
+    // Create a deep copy of our form
+    const objectToSave = JSON.parse(JSON.stringify(form));
+    // Delete fields that is unnecessary to save
+    delete objectToSave.document.id;
+    delete objectToSave.document.activeField;
+    delete objectToSave.document.existingForm;
 
     if (existingForm) {
-      put(`/forms/${id}`, form)
+      await put(`/forms/${id}`, objectToSave)
         .then(res => console.log(res))
         .catch(err => console.log(err));
+      this.setState({ isSaving: false });
     } else {
-      post('/forms/', form)
-        .then(res => console.log(res))
+      await post('/forms/', objectToSave)
+        .then(res => {
+          history.push(`/edit-form/${res.data}`);
+        })
         .catch(err => console.log(err));
     }
   };
 
   render() {
-    const { isLoadingForm } = this.state;
+    const { isLoadingForm, isSaving } = this.state;
 
     // TODO: Use loader here
     if (isLoadingForm) return null;
@@ -52,7 +62,12 @@ class FormDesignerContainer extends React.Component {
       <div className="form-designer-container">
         <OverviewPanelContainer />
         <DocumentContainer designing />
-        <button type="button" className="form-designer-container__save-button" onClick={this.saveForm}>
+        <button
+          type="button"
+          className="form-designer-container__save-button"
+          onClick={this.saveForm}
+          disabled={isSaving}
+        >
           Lagre
         </button>
       </div>
