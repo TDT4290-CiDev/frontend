@@ -13,18 +13,24 @@ class ShortcutButtons extends React.Component {
     this.setState({ expanded: !expanded });
   };
 
+  handleClick = command => {
+    const { onClick } = this.props;
+    this.collapse();
+    onClick(command);
+  };
+
   render() {
     const { expanded } = this.state;
-    const { onClick } = this.props;
+
     return (
-      <div className="shortcut-buttons" onBlur={this.collapse}>
-        <button title="Kortsvar&#013;Markup-kode: _" type="button" onClick={() => onClick('_')}>
+      <div className="shortcut-buttons" onBlur={() => setTimeout(this.collapse, 200)}>
+        <button title="Kortsvar&#013;Markup-kode: _" type="button" onClick={() => this.handleClick('_')}>
           <i className="material-icons">short_text</i>
         </button>
-        <button title="Radioknapp&#013;Markup-kode: *" type="button" onClick={() => onClick('*')}>
+        <button title="Radioknapp&#013;Markup-kode: *" type="button" onClick={() => this.handleClick('*')}>
           <i className="material-icons">radio_button_checked</i>
         </button>
-        <button title="Avmerkingsboks&#013;Markup-kode: []" type="button" onClick={() => onClick('[]')}>
+        <button title="Avmerkingsboks&#013;Markup-kode: []" type="button" onClick={() => this.handleClick('[]')}>
           <i className="material-icons">check_box</i>
         </button>
         <button title="Flere typer" type="button" onClick={this.toggleExpanded}>
@@ -33,7 +39,7 @@ class ShortcutButtons extends React.Component {
         <div className={`shortcut-buttons__expandable ${expanded ? 'open' : ''}`}>
           {expanded && (
             <div>
-              <button title="Langsvar&#013;Markup-kode: __" type="button" onClick={() => onClick('__')}>
+              <button title="Langsvar&#013;Markup-kode: __" type="button" onClick={() => this.handleClick('__')}>
                 <i className="material-icons">notes</i>
               </button>
             </div>
