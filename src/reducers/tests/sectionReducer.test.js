@@ -124,11 +124,11 @@ test('remove question', t => {
   const state = [
     {
       id: sectionId,
-      questions: [{ id: questionId }, { id: 'not-this-one' }],
+      questions: [questionId, 'not-this-one'],
     },
     {
       id: 'not-id',
-      questions: [{ id: questionId }, { id: 'not-this-one' }],
+      questions: [questionId, 'not-this-one'],
     },
   ];
 
@@ -141,11 +141,11 @@ test('remove question', t => {
   t.deepEqual(reducer(state, action), [
     {
       id: sectionId,
-      questions: [{ id: 'not-this-one' }],
+      questions: ['not-this-one'],
     },
     {
       id: 'not-id',
-      questions: [{ id: questionId }, { id: 'not-this-one' }],
+      questions: [questionId, 'not-this-one'],
     },
   ]);
 });
