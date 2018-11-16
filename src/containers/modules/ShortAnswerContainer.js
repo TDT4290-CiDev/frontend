@@ -6,7 +6,7 @@ import { setFocus } from '../../actions/documentActions';
 import { removeQuestion } from '../../actions/questionActions';
 import { setInputValue } from '../../actions/textInputActions';
 
-const ShortAnswerContainer = ({
+export const ShortAnswerContainer = ({
   id,
   sectionId,
   title,
@@ -76,7 +76,7 @@ ShortAnswerContainer.propTypes = {
   setActiveField: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   onInputChange: (questionId, value) => dispatch(setInputValue(questionId, value)),
   removeQuestion: (id, sectionId) => dispatch(removeQuestion(id, sectionId)),
   setActiveField: id => dispatch(setFocus(id)),
