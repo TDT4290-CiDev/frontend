@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setFocus } from '../actions/documentActions';
 
-class InputField extends React.Component {
+export class InputField extends React.Component {
   constructor(props) {
     super(props);
     this.inputRef = React.createRef();
@@ -76,7 +76,7 @@ const mapStateToProps = state => ({
   activeField: state.document.activeField,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   setActiveField: id => dispatch(setFocus(id)),
 });
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class ShortcutButtons extends React.Component {
+export class ShortcutButtons extends React.Component {
   state = { expanded: false };
 
   collapse = () => {

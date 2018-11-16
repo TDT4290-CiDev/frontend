@@ -8,7 +8,7 @@ import { addSection } from '../actions/sectionActions';
 import { addQuestion } from '../actions/questionActions';
 import { isValidCommand, validCommandsString, getCommandTranslation, getUniqueStateAttributes } from '../utils/modules';
 
-class CommandInputFieldContainer extends React.Component {
+export class CommandInputFieldContainer extends React.Component {
   state = {
     inputText: '',
   };
@@ -44,6 +44,7 @@ class CommandInputFieldContainer extends React.Component {
     const { inputText } = this.state;
     if (['Enter', 'Spacebar', ' '].includes(e.key)) {
       if (isValidCommand(inputText)) {
+        console.log('Valid');
         this.createNewQuestion(inputText);
         this.setState({ inputText: '' });
       } else if (inputText !== '') {
@@ -78,11 +79,11 @@ CommandInputFieldContainer.propTypes = {
   setActiveField: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   sections: state.sections,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   addNewSection: index => dispatch(addSection(index)),
   addNewQuestion: (sectionId, index, type, uniqueStateAttributes) =>
     dispatch(addQuestion(sectionId, index, type, uniqueStateAttributes)),

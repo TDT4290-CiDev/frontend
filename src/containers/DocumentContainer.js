@@ -6,7 +6,7 @@ import SectionContainer from './SectionContainer';
 import InputField from '../components/InputField';
 import { setDocumentTitle } from '../actions/documentActions';
 
-class DocumentContainer extends React.Component {
+export class DocumentContainer extends React.Component {
   handleTitleChange = e => {
     const { onTitleChange } = this.props;
     onTitleChange(e.target.value);
@@ -54,13 +54,13 @@ DocumentContainer.propTypes = {
   designing: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   id: state.document.id,
   title: state.document.title,
   sections: state.document.sections,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   onTitleChange: title => dispatch(setDocumentTitle(title)),
 });
 

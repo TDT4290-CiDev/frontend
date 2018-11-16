@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import GenericListContainer from '../GenericListContainer';
 import { toggleCheckbox } from '../../actions/checkboxActions';
 
-const CheckboxListContainer = ({ id, onToggle, ...remainingProps }) => {
+export const CheckboxListContainer = ({ id, onToggle, ...remainingProps }) => {
   const handleCheck = checkboxId => {
     onToggle(checkboxId, id);
   };
@@ -26,7 +26,7 @@ CheckboxListContainer.propTypes = {
   onToggle: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   onToggle: (id, questionId) => dispatch(toggleCheckbox(id, questionId)),
 });
 

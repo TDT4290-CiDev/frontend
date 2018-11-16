@@ -6,7 +6,7 @@ import OverviewPanelContainer from './OverviewPanelContainer';
 import { fetchExistingForm, clearState } from '../actions/documentActions';
 import { post, put } from '../utils/api';
 
-class FormDesignerContainer extends React.Component {
+export class FormDesignerContainer extends React.Component {
   state = {
     isLoadingForm: true,
     isSaving: false,
@@ -80,11 +80,11 @@ FormDesignerContainer.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   form: state,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   getForm: id => dispatch(fetchExistingForm(id)),
   clearState: () => dispatch(clearState()),
 });

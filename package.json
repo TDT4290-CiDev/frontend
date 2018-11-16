@@ -7,9 +7,7 @@
     "build": "nwb build-react-app",
     "clean": "nwb clean-app",
     "start": "nwb serve-react-app --hot",
-    "test": "nwb test-react",
-    "test:coverage": "nwb test-react --coverage",
-    "test:watch": "nwb test-react --server",
+    "test": "cross-env NODE_ENV=test NODE_PATH=src nyc ava",
     "pretty": "prettier --write \"**/*.{js,json,scss,md}\""
   },
   "dependencies": {
@@ -29,11 +27,14 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.6",
-    "@babel/preset-react": "^7.0.0",
     "@namics/stylelint-bem": "^5.1.1",
+    "ava": "0.25.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
+    "babel-preset-react-app": "3.0.3",
+    "cross-env": "5.2.0",
+    "enzyme": "3.7.0",
+    "enzyme-adapter-react-16": "1.7.0",
     "eslint": "^5.9.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.3.0",
@@ -42,14 +43,47 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "husky": "^1.1.4",
+    "jsdom": "13.0.0",
     "lint-staged": "^8.0.4",
+    "moxios": "0.4.0",
     "nwb": "0.23.x",
+    "nyc": "13.1.0",
     "prettier": "1.15.2",
     "redux-immutable-state-invariant": "^2.1.0",
     "redux-logger": "^3.0.6",
+    "sinon": "7.1.1",
     "stylelint": "^9.8.0",
     "stylelint-config-prettier": "^4.0.0",
     "stylelint-config-standard": "^18.2.0"
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ],
+    "plugins": [
+      "transform-runtime"
+    ],
+    "env": {
+      "development": {
+        "sourceMaps": "inline"
+      }
+    }
+  },
+  "nyc": {
+    "exclude": [
+      "src/utils/**/*",
+      "config/**/*",
+      "**/*config*",
+      "**/*.test.js"
+    ]
+  },
+  "ava": {
+    "require": [
+      "babel-register",
+      "./config/test-setup",
+      "babel-core/register"
+    ],
+    "babel": "inherit"
   },
   "husky": {
     "hooks": {
