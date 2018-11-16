@@ -29,9 +29,9 @@
   "devDependencies": {
     "@namics/stylelint-bem": "^5.1.1",
     "ava": "0.25.0",
-    "babel-preset-react-app": "3.0.3",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
+    "babel-preset-react-app": "3.0.3",
     "cross-env": "5.2.0",
     "enzyme": "3.7.0",
     "enzyme-adapter-react-16": "1.7.0",
@@ -45,6 +45,7 @@
     "husky": "^1.1.4",
     "jsdom": "13.0.0",
     "lint-staged": "^8.0.4",
+    "moxios": "0.4.0",
     "nwb": "0.23.x",
     "nyc": "13.1.0",
     "prettier": "1.15.2",
@@ -72,6 +73,7 @@
     "exclude": [
       "src/utils/**/*",
       "config/**/*",
+      "**/*config*",
       "**/*.test.js"
     ]
   },

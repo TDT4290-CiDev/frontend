@@ -1,5 +1,7 @@
 import test from 'ava';
 
+// These tests are sanity checks :)
+
 test('foo', t => {
   t.pass();
 });

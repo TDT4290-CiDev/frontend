@@ -11,3 +11,8 @@ const dom = new JSDOM('<body></body>');
 // Setting global window and document variables
 global.window = dom.window;
 global.document = dom.window.document;
+
+// Setting user agent for moxios
+global.navigator = {
+  userAgent: 'node.js',
+};
