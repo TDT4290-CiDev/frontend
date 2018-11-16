@@ -29,7 +29,9 @@ export const fetchExistingForm = id => async dispatch => {
         form: data.data,
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      throw err;
+    });
 };
 
 export const clearState = () => dispatch => {
