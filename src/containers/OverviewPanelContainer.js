@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { setFocus } from '../actions/documentActions';
 import OverviewPanel from '../components/OverviewPanel';
 
-class OverviewPanelContainer extends React.Component {
+export class OverviewPanelContainer extends React.Component {
   state = {
     open: false,
   };
@@ -62,14 +62,14 @@ OverviewPanelContainer.propTypes = {
   activeField: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   document: { id: state.document.id, title: state.document.title },
   sections: state.sections,
   questions: state.questions,
   activeField: state.document.activeField,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   setFocusTo: id => dispatch(setFocus(id)),
 });
 
