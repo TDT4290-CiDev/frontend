@@ -13,7 +13,7 @@ import {
 const availableModules = {
   kortsvar: ShortAnswerContainer,
   langsvar: LongAnswerContainer,
-  punktliste: RadioButtonListContainer,
+  flervalg: RadioButtonListContainer,
   checkboxliste: CheckboxListContainer,
 };
 
@@ -21,7 +21,7 @@ const availableModules = {
 const commandTranslation = {
   _: 'kortsvar',
   __: 'langsvar',
-  '*': 'punktliste',
+  '*': 'flervalg',
   '[]': 'checkboxliste',
 };
 

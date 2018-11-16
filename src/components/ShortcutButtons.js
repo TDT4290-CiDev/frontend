@@ -13,28 +13,34 @@ class ShortcutButtons extends React.Component {
     this.setState({ expanded: !expanded });
   };
 
+  handleClick = command => {
+    const { onClick } = this.props;
+    this.collapse();
+    onClick(command);
+  };
+
   render() {
     const { expanded } = this.state;
-    const { onClick } = this.props;
+
     return (
-      <div className="shortcut-buttons" onBlur={this.collapse}>
-        <button type="button" onClick={() => onClick('_')}>
-          Kortsvar
+      <div className="shortcut-buttons" onBlur={() => setTimeout(this.collapse, 200)}>
+        <button title="Kortsvar&#013;Markup-kode: _" type="button" onClick={() => this.handleClick('_')}>
+          <i className="material-icons">short_text</i>
         </button>
-        <button type="button" onClick={() => onClick('*')}>
-          Radiobutton
+        <button title="Radioknapp&#013;Markup-kode: *" type="button" onClick={() => this.handleClick('*')}>
+          <i className="material-icons">radio_button_checked</i>
         </button>
-        <button type="button" onClick={() => onClick('[]')}>
-          Checkboxlist
+        <button title="Avmerkingsboks&#013;Markup-kode: []" type="button" onClick={() => this.handleClick('[]')}>
+          <i className="material-icons">check_box</i>
         </button>
-        <button type="button" onClick={this.toggleExpanded}>
-          Flere knapper
+        <button title="Flere typer" type="button" onClick={this.toggleExpanded}>
+          <i className="material-icons">more_vert</i>
         </button>
-        <div className="shortcut-buttons__expandable">
+        <div className={`shortcut-buttons__expandable ${expanded ? 'open' : ''}`}>
           {expanded && (
             <div>
-              <button type="button" onClick={() => onClick('__')}>
-                Langsvar
+              <button title="Langsvar&#013;Markup-kode: __" type="button" onClick={() => this.handleClick('__')}>
+                <i className="material-icons">notes</i>
               </button>
             </div>
           )}

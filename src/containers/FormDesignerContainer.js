@@ -62,13 +62,8 @@ class FormDesignerContainer extends React.Component {
       <div className="form-designer-container">
         <OverviewPanelContainer />
         <DocumentContainer designing />
-        <button
-          type="button"
-          className="form-designer-container__save-button"
-          onClick={this.saveForm}
-          disabled={isSaving}
-        >
-          Lagre
+        <button type="button" className="form-designer-container__save-button" onClick={this.saveForm} disabled={isSaving}>
+          <i className="material-icons">save</i>
         </button>
       </div>
     );
