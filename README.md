@@ -13,10 +13,6 @@
 ## Running Tests
 - `yarn test` will run the tests once.
 
-- `yarn run test:coverage` will run the tests and produce a coverage report in `coverage/`.
-
-- `yarn run test:watch` will run the tests on every change.
-
 ## Building
 - `yarn run build` creates a production build by default.
 
